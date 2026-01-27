@@ -1,0 +1,54 @@
+[
+  {
+    "departure_station": "Ashchurch For Tewkesbury",
+    "departure_at": "2025-12-08T08:00:00",
+    "arrival_station": "Ash",
+    "arrival_at": "2025-12-08T10:30:00",
+    "duration_in_minutes": 150,
+    "changeovers": 2,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Advance Single",
+        "price_in_cents": 2599,
+        "currency": "GBP",
+        "comfort_class": 1
+      }
+    ]
+  },
+  {
+    "departure_station": "Ashchurch For Tewkesbury",
+    "departure_at": "2025-12-08T09:00:00",
+    "arrival_station": "Ash",
+    "arrival_at": "2025-12-08T11:00:00",
+    "duration_in_minutes": 120,
+    "changeovers": 0,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Advance Single",
+        "price_in_cents": 1999,
+        "currency": "GBP",
+        "comfort_class": 2
+      }
+    ]
+  },
+  {
+    "departure_station": "Ashchurch For Tewkesbury",
+    "departure_at": "2025-12-08T10:30:00",
+    "arrival_station": "Ash",
+    "arrival_at": "2025-12-08T13:00:00",
+    "duration_in_minutes": 150,
+    "changeovers": 1,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Flexible Single",
+        "price_in_cents": 2999,
+        "currency": "GBP",
+        "comfort_class": 1
+      }
+    ]
+  }
+]
+
