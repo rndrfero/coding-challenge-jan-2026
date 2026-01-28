@@ -1,54 +1,217 @@
 [
   {
-    "departure_station": "Ashchurch For Tewkesbury",
+    "departure_station": "Vienna",
     "departure_at": "2025-12-08T08:00:00",
-    "arrival_station": "Ash",
-    "arrival_at": "2025-12-08T10:30:00",
-    "duration_in_minutes": 150,
-    "changeovers": 2,
+    "arrival_station": "Berlin",
+    "arrival_at": "2025-12-08T12:30:00",
+    "duration_in_minutes": 270,
+    "changeovers": 1,
     "products": ["train"],
     "fares": [
       {
-        "name": "Advance Single",
-        "price_in_cents": 2599,
-        "currency": "GBP",
+        "name": "Super Saver",
+        "price_in_cents": 4999,
+        "currency": "EUR",
+        "comfort_class": 2
+      },
+      {
+        "name": "Flexible",
+        "price_in_cents": 7999,
+        "currency": "EUR",
         "comfort_class": 1
       }
     ]
   },
   {
-    "departure_station": "Ashchurch For Tewkesbury",
-    "departure_at": "2025-12-08T09:00:00",
-    "arrival_station": "Ash",
-    "arrival_at": "2025-12-08T11:00:00",
-    "duration_in_minutes": 120,
+    "departure_station": "Vienna",
+    "departure_at": "2025-12-08T10:00:00",
+    "arrival_station": "Berlin",
+    "arrival_at": "2025-12-08T15:00:00",
+    "duration_in_minutes": 300,
     "changeovers": 0,
     "products": ["train"],
     "fares": [
       {
-        "name": "Advance Single",
-        "price_in_cents": 1999,
-        "currency": "GBP",
+        "name": "Saver",
+        "price_in_cents": 5999,
+        "currency": "EUR",
         "comfort_class": 2
       }
     ]
   },
   {
-    "departure_station": "Ashchurch For Tewkesbury",
-    "departure_at": "2025-12-08T10:30:00",
-    "arrival_station": "Ash",
-    "arrival_at": "2025-12-08T13:00:00",
-    "duration_in_minutes": 150,
+    "departure_station": "Vienna",
+    "departure_at": "2025-12-08T14:30:00",
+    "arrival_station": "Berlin",
+    "arrival_at": "2025-12-08T20:00:00",
+    "duration_in_minutes": 330,
+    "changeovers": 2,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Budget",
+        "price_in_cents": 3999,
+        "currency": "EUR",
+        "comfort_class": 2
+      },
+      {
+        "name": "Standard",
+        "price_in_cents": 6499,
+        "currency": "EUR",
+        "comfort_class": 2
+      },
+      {
+        "name": "First Class",
+        "price_in_cents": 9999,
+        "currency": "EUR",
+        "comfort_class": 1
+      }
+    ]
+  },
+
+  {
+    "departure_station": "Paris",
+    "departure_at": "2025-12-08T07:15:00",
+    "arrival_station": "London",
+    "arrival_at": "2025-12-08T08:45:00",
+    "duration_in_minutes": 90,
+    "changeovers": 0,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Eurostar Standard",
+        "price_in_cents": 8999,
+        "currency": "EUR",
+        "comfort_class": 2
+      },
+      {
+        "name": "Eurostar Standard Premier",
+        "price_in_cents": 12999,
+        "currency": "EUR",
+        "comfort_class": 1
+      }
+    ]
+  },
+  {
+    "departure_station": "Paris",
+    "departure_at": "2025-12-08T09:30:00",
+    "arrival_station": "London",
+    "arrival_at": "2025-12-08T11:00:00",
+    "duration_in_minutes": 90,
+    "changeovers": 0,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Eurostar Basic",
+        "price_in_cents": 6999,
+        "currency": "EUR",
+        "comfort_class": 2
+      }
+    ]
+  },
+  {
+    "departure_station": "Paris",
+    "departure_at": "2025-12-08T13:00:00",
+    "arrival_station": "London",
+    "arrival_at": "2025-12-08T14:30:00",
+    "duration_in_minutes": 90,
+    "changeovers": 0,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Eurostar Standard",
+        "price_in_cents": 8499,
+        "currency": "EUR",
+        "comfort_class": 2
+      },
+      {
+        "name": "Eurostar Business Premier",
+        "price_in_cents": 15999,
+        "currency": "EUR",
+        "comfort_class": 1
+      }
+    ]
+  },
+
+  {
+    "departure_station": "Rome",
+    "departure_at": "2025-12-08T06:45:00",
+    "arrival_station": "Madrid",
+    "arrival_at": "2025-12-08T12:30:00",
+    "duration_in_minutes": 345,
     "changeovers": 1,
     "products": ["train"],
     "fares": [
       {
-        "name": "Flexible Single",
-        "price_in_cents": 2999,
-        "currency": "GBP",
+        "name": "Saver",
+        "price_in_cents": 7499,
+        "currency": "EUR",
+        "comfort_class": 2
+      }
+    ]
+  },
+  {
+    "departure_station": "Rome",
+    "departure_at": "2025-12-08T11:00:00",
+    "arrival_station": "Madrid",
+    "arrival_at": "2025-12-08T17:00:00",
+    "duration_in_minutes": 360,
+    "changeovers": 2,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Budget",
+        "price_in_cents": 5999,
+        "currency": "EUR",
+        "comfort_class": 2
+      },
+      {
+        "name": "Flexible",
+        "price_in_cents": 9499,
+        "currency": "EUR",
+        "comfort_class": 1
+      }
+    ]
+  },
+
+  {
+    "departure_station": "Amsterdam",
+    "departure_at": "2025-12-08T08:20:00",
+    "arrival_station": "Prague",
+    "arrival_at": "2025-12-08T16:10:00",
+    "duration_in_minutes": 470,
+    "changeovers": 2,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Super Saver",
+        "price_in_cents": 5499,
+        "currency": "EUR",
+        "comfort_class": 2
+      },
+      {
+        "name": "Standard",
+        "price_in_cents": 7999,
+        "currency": "EUR",
+        "comfort_class": 2
+      }
+    ]
+  },
+  {
+    "departure_station": "Amsterdam",
+    "departure_at": "2025-12-08T12:00:00",
+    "arrival_station": "Prague",
+    "arrival_at": "2025-12-08T20:00:00",
+    "duration_in_minutes": 480,
+    "changeovers": 1,
+    "products": ["train"],
+    "fares": [
+      {
+        "name": "Flexible",
+        "price_in_cents": 9999,
+        "currency": "EUR",
         "comfort_class": 1
       }
     ]
   }
 ]
-

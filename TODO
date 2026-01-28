@@ -15,3 +15,17 @@ trainline.com - public API analyses:
   - JS execution API test
 
 Although autocomplete CORS can be handled
+
+future development directions
+
+- better mock api for connections and date/time handling
+
+make autocomplete to react on name and translatedName
+
+- name vs. translated name on autocomplete.
+
+- trainline autocomplete format is real, connections are non-existent
+
+- sync names with real trainline
+
+- sync names from, to -> departure, arrival - and overall naming

@@ -4,8 +4,8 @@ import ConnectionSearchForm from "./components/ConnectionSearchForm.vue";
 import ConnectionResultsTable from "./components/ConnectionResultsTable.vue";
 import { useConnectionsApi } from "./composables/useConnectionsApi";
 
-const from = ref("Ashchurch For Tewkesbury");
-const to = ref("Ash");
+const from = ref();
+const to = ref();
 const departureAt = ref("2025-12-08");
 
 const { isLoading, error, connections, searchConnections } =

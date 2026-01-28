@@ -48,7 +48,7 @@ async function handleInput(event) {
 }
 
 function selectOption(option) {
-  const value = option.translatedName || option.name || "";
+  const value = option.translatedName;
   query.value = value;
   emit("update:modelValue", value);
   isOpen.value = false;
@@ -88,7 +88,10 @@ function handleBlur() {
           class="autocomplete-option"
           @mousedown.prevent="selectOption(item)"
         >
-          {{ item.translatedName || item.name }}
+          <span class="autocomplete-main">
+            {{ item.translatedName }}
+          </span>
+          <span class="autocomplete-secondary"> ({{ item.name }}) </span>
         </li>
       </ul>
       <div v-else class="autocomplete-status">No results</div>
@@ -111,7 +114,6 @@ function handleBlur() {
 
 .autocomplete-panel {
   @apply absolute z-10 mt-1 w-full bg-white border border-slate-200 rounded-md shadow-md;
-  top: 100px;
 }
 
 .autocomplete-status {
@@ -128,5 +130,13 @@ function handleBlur() {
 
 .autocomplete-option {
   @apply px-3 py-2 text-sm text-slate-800 cursor-pointer hover:bg-slate-100;
+}
+
+.autocomplete-main {
+  @apply font-medium;
+}
+
+.autocomplete-secondary {
+  @apply ml-1 text-xs text-slate-500;
 }
 </style>
