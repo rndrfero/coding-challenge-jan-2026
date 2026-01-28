@@ -2,10 +2,16 @@
 
 - translatedName
 
-VITE_USE_REAL_AUTOCOMPLETE=true in an .env file 
-
-
+VITE_USE_REAL_AUTOCOMPLETE=true in an .env file
 
 Check that your vite.json configuration file is available in the load path:
 
-	No such file or directory @ rb_sysopen - /Users/teo/code/coding-challenge-jan-2026/config/vite.json
+    No such file or directory @ rb_sysopen - /Users/teo/code/coding-challenge-jan-2026/config/vite.json
+
+trainline.com - public API analyses:
+
+- we cannot use LIVE trainline API due to:
+  - CORS browser limitations
+  - JS execution API test
+
+Although autocomplete CORS can be handled

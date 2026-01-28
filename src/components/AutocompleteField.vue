@@ -53,6 +53,13 @@ function selectOption(option) {
   emit("update:modelValue", value);
   isOpen.value = false;
 }
+
+function handleBlur() {
+  // Delay closing so option mousedown can fire before blur hides the panel
+  setTimeout(() => {
+    isOpen.value = false;
+  }, 100);
+}
 </script>
 
 <template>
@@ -65,6 +72,8 @@ function selectOption(option) {
       :value="query"
       @input="handleInput"
       @focus="query && (isOpen = true)"
+      @blur="handleBlur"
+      @keydown.escape.stop.prevent="isOpen = false"
     />
 
     <div v-if="isOpen" class="autocomplete-panel">
@@ -102,6 +111,7 @@ function selectOption(option) {
 
 .autocomplete-panel {
   @apply absolute z-10 mt-1 w-full bg-white border border-slate-200 rounded-md shadow-md;
+  top: 100px;
 }
 
 .autocomplete-status {

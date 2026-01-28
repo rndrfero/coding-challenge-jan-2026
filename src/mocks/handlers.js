@@ -13,18 +13,14 @@ export const handlers = [
     const url = new URL(request.url);
     const query = (url.searchParams.get("q") || "").toLowerCase();
 
-    // Simple mock: if query matches the start of any city name,
-    // return all cities; otherwise return an empty result.
-    const hasMatch =
-      query &&
-      autocompleteData.searchLocations.some((item) =>
-        item.name.toLowerCase().startsWith(query),
-      );
-
-    if (!hasMatch) {
+    if (!query) {
       return HttpResponse.json({ searchLocations: [] });
     }
 
-    return HttpResponse.json(autocompleteData);
+    const matches = autocompleteData.searchLocations.filter((item) =>
+      item.name.toLowerCase().startsWith(query),
+    );
+
+    return HttpResponse.json({ searchLocations: matches });
   }),
 ];
