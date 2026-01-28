@@ -1,30 +1,30 @@
-import { http, HttpResponse } from 'msw';
-import connections from './data/connections.json';
+import { http, HttpResponse } from "msw";
+import connections from "./data/connections.json";
+import autocompleteData from "./data/autocomplete.json";
 
 export const handlers = [
-  http.post('/api/connections', async ({ request }) => {
+  http.post("/api/connections", async ({ request }) => {
     const body = await request.json();
     // body: { from, to, departureAt } - not used yet
     return HttpResponse.json(connections);
   }),
 
-  http.get('/api/autocomplete', ({ request }) => {
+  http.get("/api/autocomplete", ({ request }) => {
     const url = new URL(request.url);
-    const query = url.searchParams.get('q') || '';
+    const query = (url.searchParams.get("q") || "").toLowerCase();
 
-    const allStations = [
-      'Ashchurch For Tewkesbury',
-      'Ash',
-      'London',
-      'Bristol',
-      'Cardiff'
-    ];
+    // Simple mock: if query matches the start of any city name,
+    // return all cities; otherwise return an empty result.
+    const hasMatch =
+      query &&
+      autocompleteData.searchLocations.some((item) =>
+        item.name.toLowerCase().startsWith(query),
+      );
 
-    const results = allStations
-      .filter((name) => name.toLowerCase().includes(query.toLowerCase()))
-      .map((name, index) => ({ id: index + 1, name }));
+    if (!hasMatch) {
+      return HttpResponse.json({ searchLocations: [] });
+    }
 
-    return HttpResponse.json(results);
-  })
+    return HttpResponse.json(autocompleteData);
+  }),
 ];
-

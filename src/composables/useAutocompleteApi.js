@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export function useAutocompleteApi({ useMock = true } = {}) {
   const isLoading = ref(false);
@@ -6,8 +6,8 @@ export function useAutocompleteApi({ useMock = true } = {}) {
   const results = ref([]);
 
   const baseUrl = useMock
-    ? '/api/autocomplete'
-    : import.meta.env.VITE_AUTOCOMPLETE_API_URL || '/api/autocomplete';
+    ? "/api/autocomplete"
+    : import.meta.env.VITE_AUTOCOMPLETE_API_URL || "/api/autocomplete";
 
   async function fetchStations(query) {
     if (!query) {
@@ -21,11 +21,15 @@ export function useAutocompleteApi({ useMock = true } = {}) {
     try {
       const res = await fetch(`${baseUrl}?q=${encodeURIComponent(query)}`);
       if (!res.ok) {
-        throw new Error('Failed to fetch stations');
+        throw new Error("Failed to fetch stations");
       }
-      results.value = await res.json();
+      const data = await res.json();
+      // Expecting shape: { searchLocations: [...] }
+      results.value = Array.isArray(data.searchLocations)
+        ? data.searchLocations
+        : [];
     } catch (err) {
-      error.value = err.message || 'Unknown error';
+      error.value = err.message || "Unknown error";
     } finally {
       isLoading.value = false;
     }
@@ -33,4 +37,3 @@ export function useAutocompleteApi({ useMock = true } = {}) {
 
   return { isLoading, error, results, fetchStations };
 }
-

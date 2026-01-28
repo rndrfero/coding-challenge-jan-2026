@@ -1,4 +1,6 @@
 <script setup>
+import AutocompleteField from "./AutocompleteField.vue";
+
 const props = defineProps({
   from: String,
   to: String,
@@ -21,20 +23,20 @@ function submit() {
   <form class="search-form" @submit.prevent="submit">
     <div class="fields-row">
       <div class="field">
-        <label>From</label>
-        <input
-          type="text"
-          :value="from"
-          @input="$emit('update:from', $event.target.value)"
+        <AutocompleteField
+          label="From"
+          :model-value="from"
+          placeholder="Start typing a city or station"
+          @update:model-value="$emit('update:from', $event)"
         />
       </div>
 
       <div class="field">
-        <label>To</label>
-        <input
-          type="text"
-          :value="to"
-          @input="$emit('update:to', $event.target.value)"
+        <AutocompleteField
+          label="To"
+          :model-value="to"
+          placeholder="Start typing a city or station"
+          @update:model-value="$emit('update:to', $event)"
         />
       </div>
 

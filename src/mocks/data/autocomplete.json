@@ -1,0 +1,132 @@
+{
+  "searchLocations": [
+    {
+      "name": "Wien",
+      "translatedName": "Vienna",
+      "countryCode": "AT",
+      "code": "urn:trainline:generic:loc:26862",
+      "score": 0.03899312,
+      "longitude": 16.3738,
+      "latitude": 48.2082,
+      "extraInfo": {
+        "attributes": ["BusStation", "category:point"]
+      },
+      "locationType": "city",
+      "defaultLanguage": "en",
+      "timezone": "Europe/Vienna",
+      "connections": []
+    },
+    {
+      "name": "Berlin",
+      "translatedName": "Berlin",
+      "countryCode": "DE",
+      "code": "urn:trainline:generic:loc:de-berlin",
+      "score": 0.05,
+      "longitude": 13.405,
+      "latitude": 52.52,
+      "extraInfo": {
+        "attributes": ["category:city"]
+      },
+      "locationType": "city",
+      "defaultLanguage": "en",
+      "timezone": "Europe/Berlin",
+      "connections": []
+    },
+    {
+      "name": "Paris",
+      "translatedName": "Paris",
+      "countryCode": "FR",
+      "code": "urn:trainline:generic:loc:fr-paris",
+      "score": 0.05,
+      "longitude": 2.3522,
+      "latitude": 48.8566,
+      "extraInfo": {
+        "attributes": ["category:city"]
+      },
+      "locationType": "city",
+      "defaultLanguage": "en",
+      "timezone": "Europe/Paris",
+      "connections": []
+    },
+    {
+      "name": "London",
+      "translatedName": "London",
+      "countryCode": "GB",
+      "code": "urn:trainline:generic:loc:gb-london",
+      "score": 0.05,
+      "longitude": -0.1276,
+      "latitude": 51.5074,
+      "extraInfo": {
+        "attributes": ["category:city"]
+      },
+      "locationType": "city",
+      "defaultLanguage": "en",
+      "timezone": "Europe/London",
+      "connections": []
+    },
+    {
+      "name": "Roma",
+      "translatedName": "Rome",
+      "countryCode": "IT",
+      "code": "urn:trainline:generic:loc:it-rome",
+      "score": 0.05,
+      "longitude": 12.4964,
+      "latitude": 41.9028,
+      "extraInfo": {
+        "attributes": ["category:city"]
+      },
+      "locationType": "city",
+      "defaultLanguage": "en",
+      "timezone": "Europe/Rome",
+      "connections": []
+    },
+    {
+      "name": "Madrid",
+      "translatedName": "Madrid",
+      "countryCode": "ES",
+      "code": "urn:trainline:generic:loc:es-madrid",
+      "score": 0.05,
+      "longitude": -3.7038,
+      "latitude": 40.4168,
+      "extraInfo": {
+        "attributes": ["category:city"]
+      },
+      "locationType": "city",
+      "defaultLanguage": "en",
+      "timezone": "Europe/Madrid",
+      "connections": []
+    },
+    {
+      "name": "Amsterdam",
+      "translatedName": "Amsterdam",
+      "countryCode": "NL",
+      "code": "urn:trainline:generic:loc:nl-amsterdam",
+      "score": 0.05,
+      "longitude": 4.9041,
+      "latitude": 52.3676,
+      "extraInfo": {
+        "attributes": ["category:city"]
+      },
+      "locationType": "city",
+      "defaultLanguage": "en",
+      "timezone": "Europe/Amsterdam",
+      "connections": []
+    },
+    {
+      "name": "Praha",
+      "translatedName": "Prague",
+      "countryCode": "CZ",
+      "code": "urn:trainline:generic:loc:cz-prague",
+      "score": 0.05,
+      "longitude": 14.4378,
+      "latitude": 50.0755,
+      "extraInfo": {
+        "attributes": ["category:city"]
+      },
+      "locationType": "city",
+      "defaultLanguage": "en",
+      "timezone": "Europe/Prague",
+      "connections": []
+    }
+  ]
+}
