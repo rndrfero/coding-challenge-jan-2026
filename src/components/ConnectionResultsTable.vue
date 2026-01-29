@@ -24,6 +24,13 @@ function sortIndicator(field) {
   return "";
 }
 
+function getSortAriaLabel(field, fieldName = field) {
+  if (sortBy.value === field) return `Sort by ${fieldName} ascending`;
+  if (sortBy.value === `${field}-desc`)
+    return `Sort by ${fieldName} descending`;
+  return `Sort by ${fieldName}`;
+}
+
 function getValue(connection, field) {
   if (field === "departure_at") {
     return new Date(connection.departure_at).getTime();
@@ -52,9 +59,13 @@ const sortedConnections = computed(() => {
 
 <template>
   <div class="connections-results-table">
-    <div v-if="isLoading" class="loading">Loading connections…</div>
-    <div v-else-if="error" class="error">{{ error }}</div>
-    <div v-else-if="connections.length === 0" class="empty">
+    <div v-if="isLoading" class="loading" aria-live="polite" aria-busy="true">
+      Loading connections…
+    </div>
+    <div v-else-if="error" class="error" aria-live="assertive" role="alert">
+      {{ error }}
+    </div>
+    <div v-else-if="connections.length === 0" class="empty" aria-live="polite">
       No connections yet. Try a search.
     </div>
     <div v-else class="table-wrapper">
@@ -75,15 +86,30 @@ const sortedConnections = computed(() => {
           <tr>
             <th>Departure</th>
             <th>Arrival</th>
-            <th class="sortable" @click="handleSort('departure_at')">
+            <th
+              class="sortable"
+              @click="handleSort('departure_at')"
+              role="button"
+              :aria-label="getSortAriaLabel('departure_at', 'departure time')"
+            >
               Departure Time {{ sortIndicator("departure_at") }}
             </th>
             <th>Arrival Time</th>
-            <th class="sortable" @click="handleSort('duration')">
+            <th
+              class="sortable"
+              @click="handleSort('duration')"
+              role="button"
+              :aria-label="getSortAriaLabel('duration')"
+            >
               Duration {{ sortIndicator("duration") }}
             </th>
             <th>Changeovers</th>
-            <th class="sortable" @click="handleSort('price')">
+            <th
+              class="sortable"
+              @click="handleSort('price')"
+              role="button"
+              :aria-label="getSortAriaLabel('price')"
+            >
               Price {{ sortIndicator("price") }}
             </th>
           </tr>

@@ -18,7 +18,13 @@ function toggle() {
 </script>
 
 <template>
-  <tr class="connection-row" @click="toggle">
+  <tr
+    class="connection-row"
+    @click="toggle"
+    :aria-expanded="isExpanded"
+    role="button"
+    tabindex="0"
+  >
     <td data-label="Departure">{{ connection.departure_station }}</td>
     <td data-label="Arrival">{{ connection.arrival_station }}</td>
     <td data-label="Departure Time">

@@ -70,7 +70,12 @@ function handleSearch() {
 
       <ConnectionSearchForm v-model="formData" @search="handleSearch" />
 
-      <div v-if="validationError" class="validation-error">
+      <div
+        v-if="validationError"
+        class="validation-error"
+        role="alert"
+        aria-live="assertive"
+      >
         {{ validationError }}
       </div>
 

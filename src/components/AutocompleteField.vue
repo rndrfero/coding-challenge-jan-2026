@@ -67,15 +67,25 @@ function handleBlur() {
       type="text"
       :placeholder="placeholder"
       :value="query"
+      :aria-label="label"
+      :aria-expanded="isOpen"
+      aria-autocomplete="list"
       @input="handleInput"
       @focus="query && (isOpen = true)"
       @blur="handleBlur"
       @keydown.escape.stop.prevent="isOpen = false"
     />
 
-    <div v-if="isOpen" class="panel">
-      <div v-if="isLoading" class="status">Searching…</div>
-      <div v-else-if="error" class="status error">
+    <div
+      v-if="isOpen"
+      class="panel"
+      role="listbox"
+      :aria-label="`${label} suggestions`"
+    >
+      <div v-if="isLoading" class="status" aria-live="polite" aria-busy="true">
+        Searching…
+      </div>
+      <div v-else-if="error" class="status error" aria-live="assertive">
         {{ error }}
       </div>
       <ul v-else-if="results.length > 0" class="list">
@@ -83,6 +93,7 @@ function handleBlur() {
           v-for="item in results"
           :key="item.code"
           class="option"
+          role="option"
           @mousedown.prevent="selectOption(item)"
         >
           <span class="main">

@@ -65,7 +65,13 @@ function submit() {
     </div>
 
     <div class="actions">
-      <button class="submit-button" type="submit">Search</button>
+      <button
+        class="submit-button"
+        type="submit"
+        aria-label="Search for train connections"
+      >
+        Search
+      </button>
     </div>
   </form>
 </template>

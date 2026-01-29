@@ -41,10 +41,13 @@ We cannot use the live trainline.com API:
 
 - Animation visual tuning and fixing sort relaunch animation bug
 - Dynamic generative mock data - mock API has no datetime filtering
-- No accessibility (ARIA) attributes
 - Debounce API calls, especially autocomplete
 - Add loading state for autocomplete
 - No explicit localization of time handling
+- E2E tests (cypress)
+- visual regression tests
+- keyboard support for autocomplete
+- etc
 
 ## Installation
 
