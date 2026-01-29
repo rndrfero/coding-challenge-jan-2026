@@ -32,6 +32,7 @@ We cannot use the live trainline.com API:
 
 - Readability, simplicity and conventions represent code-quality metrics
 - aesthetics (colors, icons etc) are not important - KISS approach
+- self-explanatory code without comments is prefered, comprehensive documentation is not needed in AI era
 - API returns connections allready sorted by time distance
 - API returns fares sorted by price (cheapest first)
 - Connection API data structure follows documented format
