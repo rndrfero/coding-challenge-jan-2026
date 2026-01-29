@@ -19,6 +19,7 @@ const emit = defineEmits(["update:modelValue"]);
 
 const query = ref(props.modelValue || "");
 const isOpen = ref(false);
+let debounceTimer = null;
 
 const { isLoading, error, results, fetchStations } = useAutocompleteApi();
 
@@ -36,13 +37,20 @@ async function handleInput(event) {
   query.value = value;
   emit("update:modelValue", value);
 
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+  }
+
   if (!value) {
     isOpen.value = false;
     return;
   }
 
   isOpen.value = true;
-  await fetchStations(value);
+
+  debounceTimer = setTimeout(async () => {
+    await fetchStations(value);
+  }, 300);
 }
 
 function selectOption(option) {

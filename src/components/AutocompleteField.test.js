@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { mount } from "@vue/test-utils";
 import { ref } from "vue";
 import AutocompleteField from "./AutocompleteField.vue";
@@ -17,6 +17,7 @@ describe("AutocompleteField", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.useRealTimers();
     mockFetchStations = vi.fn();
     mockResults = ref([]);
     mockIsLoading = ref(false);
@@ -28,6 +29,10 @@ describe("AutocompleteField", () => {
       results: mockResults,
       fetchStations: mockFetchStations,
     });
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it("renders with label", () => {
@@ -68,6 +73,7 @@ describe("AutocompleteField", () => {
   });
 
   it("calls fetchStations on input", async () => {
+    vi.useFakeTimers();
     const wrapper = mount(AutocompleteField, {
       props: {
         label: "From",
@@ -78,7 +84,12 @@ describe("AutocompleteField", () => {
     const input = wrapper.find("input");
     await input.setValue("Vienna");
 
+    expect(mockFetchStations).not.toHaveBeenCalled();
+
+    await vi.advanceTimersByTime(300);
+
     expect(mockFetchStations).toHaveBeenCalledWith("Vienna");
+    vi.useRealTimers();
   });
 
   it("closes panel when input is empty", async () => {
