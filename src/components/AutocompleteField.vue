@@ -80,8 +80,8 @@ function handleBlur() {
       </div>
       <ul v-else-if="results.length > 0" class="list">
         <li
-          v-for="(item, index) in results"
-          :key="index"
+          v-for="item in results"
+          :key="item.code"
           class="option"
           @mousedown.prevent="selectOption(item)"
         >

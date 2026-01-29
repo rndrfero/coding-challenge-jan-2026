@@ -19,6 +19,11 @@ We can not use trainline.com API
 
 Future improvements:
 
+- form validation
 - showing not first fare, but cheapest in row
 - animation visual tuning + fixing sort releaunch animation bug
--
+- dynamic generative mock data - mock api has no datetime filtering
+- no accessibility (aria) attributes
+- debounce API calls, especially autocomplete
+- add loading state for autocomplete
+- no explicit localization of time handling
