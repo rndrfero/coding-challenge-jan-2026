@@ -1,4 +1,6 @@
 <script setup>
+import ConnectionRow from "./ConnectionRow.vue";
+
 const props = defineProps({
   connections: { type: Array, default: () => [] },
   isLoading: Boolean,
@@ -27,29 +29,11 @@ const props = defineProps({
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(c, index) in connections" :key="index">
-            <td>{{ c.departure_station }}</td>
-            <td>{{ c.arrival_station }}</td>
-            <td>
-              {{
-                new Date(c.departure_at).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
-              }}
-            </td>
-            <td>
-              {{
-                new Date(c.arrival_at).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
-              }}
-            </td>
-            <td>{{ c.duration_in_minutes }} min</td>
-            <td>{{ c.changeovers }}</td>
-            <td>£{{ (c.fares?.[0]?.price_in_cents ?? 0) / 100 }}</td>
-          </tr>
+          <ConnectionRow
+            v-for="(connection, index) in connections"
+            :key="index"
+            :connection="connection"
+          />
         </tbody>
       </table>
     </div>
@@ -88,7 +72,7 @@ const props = defineProps({
   }
 
   tbody tr {
-    @apply border-b last:border-0;
+    @apply border-b;
   }
 
   th {
