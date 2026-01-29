@@ -7,7 +7,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  value: {
+  modelValue: {
     type: String,
   },
   placeholder: {
@@ -15,15 +15,15 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:value"]);
+const emit = defineEmits(["update:modelValue"]);
 
-const query = ref(props.value || "");
+const query = ref(props.modelValue || "");
 const isOpen = ref(false);
 
 const { isLoading, error, results, fetchStations } = useAutocompleteApi();
 
 watch(
-  () => props.value,
+  () => props.modelValue,
   (value) => {
     if (value !== query.value) {
       query.value = value || "";
@@ -34,7 +34,7 @@ watch(
 async function handleInput(event) {
   const value = event.target.value;
   query.value = value;
-  emit("update:value", value);
+  emit("update:modelValue", value);
 
   if (!value) {
     isOpen.value = false;
@@ -48,7 +48,7 @@ async function handleInput(event) {
 function selectOption(option) {
   const value = option.translatedName;
   query.value = value;
-  emit("update:value", value);
+  emit("update:modelValue", value);
   isOpen.value = false;
 }
 

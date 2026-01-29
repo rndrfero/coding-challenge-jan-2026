@@ -19,11 +19,8 @@ function handleSearch() {
     from: formData.value.from,
     to: formData.value.to,
     departureAt: formData.value.departureAt,
+    ...(formData.value.onlyDirect && { maxChangeovers: 0 }),
   };
-
-  if (formData.value.onlyDirect) {
-    payload.maxChangeovers = 0;
-  }
 
   searchConnections(payload);
 }

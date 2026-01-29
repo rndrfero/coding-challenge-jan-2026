@@ -24,23 +24,25 @@ function sortIndicator(field) {
   return "";
 }
 
+function getValue(connection, field) {
+  if (field === "departure_at") {
+    return new Date(connection.departure_at).getTime();
+  }
+  if (field === "duration") {
+    return connection.duration_in_minutes;
+  }
+  if (field === "price") {
+    return connection.fares?.[0]?.price_in_cents ?? Infinity;
+  }
+  return 0;
+}
+
 const sortedConnections = computed(() => {
   const [field, direction] = sortBy.value.split("-");
+
   const sorted = [...props.connections].sort((a, b) => {
-    let aVal, bVal;
-
-    if (field === "departure_at") {
-      aVal = new Date(a.departure_at).getTime();
-      bVal = new Date(b.departure_at).getTime();
-    } else if (field === "duration") {
-      aVal = a.duration_in_minutes;
-      bVal = b.duration_in_minutes;
-    } else if (field === "price") {
-      aVal = a.fares?.[0]?.price_in_cents ?? Infinity;
-      bVal = b.fares?.[0]?.price_in_cents ?? Infinity;
-    }
-
-    return direction === "desc" ? bVal - aVal : aVal - bVal;
+    const value = getValue(b, field) - getValue(a, field);
+    return direction === "desc" ? -value : value;
   });
 
   return sorted;

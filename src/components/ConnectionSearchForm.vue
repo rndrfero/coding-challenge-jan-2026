@@ -38,7 +38,7 @@ function submit() {
       <div class="field">
         <AutocompleteField
           label="From"
-          v-model:value="fromValue"
+          v-model="fromValue"
           placeholder="Start typing a city or station"
         />
       </div>
@@ -46,7 +46,7 @@ function submit() {
       <div class="field">
         <AutocompleteField
           label="To"
-          v-model:value="toValue"
+          v-model="toValue"
           placeholder="Start typing a city or station"
         />
       </div>
