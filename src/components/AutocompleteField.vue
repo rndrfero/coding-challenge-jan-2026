@@ -62,6 +62,7 @@ async function handleInput(event) {
 
   isOpen.value = true;
 
+  const delay = TIMING.DEBOUNCE_DELAY;
   debounceTimer = setTimeout(async () => {
     try {
       await fetchStations(value);
@@ -69,7 +70,7 @@ async function handleInput(event) {
       // Ignore aborted requests - errors are handled by composable
     }
     debounceTimer = null;
-  }, TIMING.DEBOUNCE_DELAY);
+  }, delay);
 }
 
 function selectOption(option) {
@@ -84,10 +85,12 @@ function handleBlur() {
   if (blurTimer) {
     clearTimeout(blurTimer);
   }
+  const delay = TIMING.BLUR_DELAY;
   blurTimer = setTimeout(() => {
     isOpen.value = false;
     blurTimer = null;
-  }, TIMING.BLUR_DELAY);
+  }, delay);
+}
 </script>
 
 <template>
