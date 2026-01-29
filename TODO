@@ -29,3 +29,5 @@ make autocomplete to react on name and translatedName
 - sync names with real trainline
 
 - sync names from, to -> departure, arrival - and overall naming
+
+add checkbox for 'Show only direct connections (0 changeovers)' - add that fun
