@@ -1,3 +1,5 @@
+import { VALIDATION } from "../constants";
+
 export function formatTime(dateString) {
   if (!dateString) return "N/A";
   const date = new Date(dateString);
@@ -18,8 +20,6 @@ export function normalize(value) {
     .toLowerCase();
 }
 
-const MAX_SEARCH_QUERY_LENGTH = 200;
-
 export function sanitizeSearchQuery(input) {
   if (input == null) return "";
 
@@ -29,8 +29,8 @@ export function sanitizeSearchQuery(input) {
   value = value.replace(/[\x00-\x1f\x7f]/g, "");
 
   // Limit length
-  if (value.length > MAX_SEARCH_QUERY_LENGTH) {
-    value = value.slice(0, MAX_SEARCH_QUERY_LENGTH);
+  if (value.length > VALIDATION.MAX_SEARCH_QUERY_LENGTH) {
+    value = value.slice(0, VALIDATION.MAX_SEARCH_QUERY_LENGTH);
   }
 
   return value;

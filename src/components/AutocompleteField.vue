@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, onUnmounted } from "vue";
 import { useAutocompleteApi } from "../composables/useAutocompleteApi";
+import { TIMING } from "../constants";
 
 const props = defineProps({
   label: {
@@ -68,7 +69,7 @@ async function handleInput(event) {
       // Ignore aborted requests - errors are handled by composable
     }
     debounceTimer = null;
-  }, 300);
+  }, TIMING.DEBOUNCE_DELAY);
 }
 
 function selectOption(option) {
@@ -86,8 +87,7 @@ function handleBlur() {
   blurTimer = setTimeout(() => {
     isOpen.value = false;
     blurTimer = null;
-  }, 100);
-}
+  }, TIMING.BLUR_DELAY);
 </script>
 
 <template>

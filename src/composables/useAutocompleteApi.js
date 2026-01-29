@@ -1,12 +1,13 @@
 import { ref } from "vue";
 import { useApiRequest } from "./useApiRequest";
 import { sanitizeSearchQuery } from "../utils/formatters";
+import { apiClient } from "../api/client";
+import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants";
 
 export function useAutocompleteApi() {
   const { isLoading, error, executeRequest } = useApiRequest();
   const results = ref([]);
 
-  const baseUrl = "/api/autocomplete";
   let abortController = null;
   let currentQuery = null;
 
@@ -35,25 +36,29 @@ export function useAutocompleteApi() {
 
     try {
       await executeRequest(async () => {
-        const res = await fetch(
-          `${baseUrl}?q=${encodeURIComponent(sanitized)}`,
-          { signal },
-        );
+        try {
+          const res = await apiClient.get(
+            `${API_ENDPOINTS.AUTOCOMPLETE}?q=${encodeURIComponent(sanitized)}`,
+            { signal },
+          );
 
-        if (!res.ok) {
-          throw new Error("Failed to fetch stations");
-        }
+          const data = await res.json();
 
-        const data = await res.json();
-
-        // Only update if this is still the current query
-        if (currentQuery === sanitized) {
-          if (!data || typeof data !== "object") {
-            throw new Error("Invalid response format: expected object");
+          // Only update if this is still the current query
+          if (currentQuery === sanitized) {
+            if (!data || typeof data !== "object") {
+              throw new Error(ERROR_MESSAGES.INVALID_RESPONSE_FORMAT);
+            }
+            results.value = Array.isArray(data.searchLocations)
+              ? data.searchLocations
+              : [];
           }
-          results.value = Array.isArray(data.searchLocations)
-            ? data.searchLocations
-            : [];
+        } catch (err) {
+          // Convert ApiError to specific error message
+          if (err.name === "ApiError") {
+            throw new Error(ERROR_MESSAGES.FETCH_STATIONS);
+          }
+          throw err;
         }
       });
     } catch (err) {

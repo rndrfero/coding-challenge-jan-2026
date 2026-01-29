@@ -5,6 +5,7 @@ import {
   normalize,
   sanitizeSearchQuery,
 } from "./formatters";
+import { VALIDATION } from "../constants.js";
 
 describe("formatters", () => {
   describe("formatTime", () => {
@@ -92,11 +93,11 @@ describe("formatters", () => {
       expect(sanitizeSearchQuery("vienna\x7f")).toBe("vienna");
     });
 
-    it("limits length to 200 characters", () => {
+    it("limits length to MAX_SEARCH_QUERY_LENGTH", () => {
       const longString = "a".repeat(250);
       const result = sanitizeSearchQuery(longString);
-      expect(result.length).toBe(200);
-      expect(result).toBe("a".repeat(200));
+      expect(result.length).toBe(VALIDATION.MAX_SEARCH_QUERY_LENGTH);
+      expect(result).toBe("a".repeat(VALIDATION.MAX_SEARCH_QUERY_LENGTH));
     });
 
     it("handles null and undefined", () => {
