@@ -41,8 +41,9 @@ const sortedConnections = computed(() => {
   const [field, direction] = sortBy.value.split("-");
 
   const sorted = [...props.connections].sort((a, b) => {
-    const value = getValue(b, field) - getValue(a, field);
-    return direction === "desc" ? -value : value;
+    const aVal = getValue(a, field);
+    const bVal = getValue(b, field);
+    return direction === "desc" ? bVal - aVal : aVal - bVal;
   });
 
   return sorted;
