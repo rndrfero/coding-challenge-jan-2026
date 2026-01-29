@@ -63,10 +63,9 @@ function handleBlur() {
 </script>
 
 <template>
-  <div class="autocomplete">
-    <label class="autocomplete-label">{{ label }}</label>
+  <div class="autocomplete-field">
+    <label>{{ label }}</label>
     <input
-      class="autocomplete-input"
       type="text"
       :placeholder="placeholder"
       :value="query"
@@ -76,22 +75,22 @@ function handleBlur() {
       @keydown.escape.stop.prevent="isOpen = false"
     />
 
-    <div v-if="isOpen" class="autocomplete-panel">
-      <div v-if="isLoading" class="autocomplete-status">Searching…</div>
-      <div v-else-if="error" class="autocomplete-status error">
+    <div v-if="isOpen" class="panel">
+      <div v-if="isLoading" class="status">Searching…</div>
+      <div v-else-if="error" class="status error">
         {{ error }}
       </div>
-      <ul v-else-if="results.length > 0" class="autocomplete-list">
+      <ul v-else-if="results.length > 0" class="list">
         <li
           v-for="(item, index) in results"
           :key="index"
-          class="autocomplete-option"
+          class="option"
           @mousedown.prevent="selectOption(item)"
         >
-          <span class="autocomplete-main">
+          <span class="main">
             {{ item.translatedName }}
           </span>
-          <span class="autocomplete-secondary"> ({{ item.name }}) </span>
+          <span class="secondary"> ({{ item.name }}) </span>
         </li>
       </ul>
       <div v-else class="autocomplete-status">No results</div>
@@ -99,44 +98,44 @@ function handleBlur() {
   </div>
 </template>
 
-<style scoped>
-.autocomplete {
+<style>
+.autocomplete-field {
   @apply relative flex flex-col gap-1;
-}
 
-.autocomplete-label {
-  @apply text-sm font-medium text-slate-700;
-}
+  label {
+    @apply text-sm font-medium text-slate-700;
+  }
 
-.autocomplete-input {
-  @apply border border-slate-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-}
+  input {
+    @apply border border-slate-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  }
 
-.autocomplete-panel {
-  @apply absolute z-10 mt-1 w-full bg-white border border-slate-200 rounded-md shadow-md;
-}
+  .panel {
+    @apply absolute z-10 mt-1 w-full bg-white border border-slate-200 rounded-md shadow-md;
+  }
 
-.autocomplete-status {
-  @apply px-3 py-2 text-xs text-slate-600;
-}
+  .status {
+    @apply px-3 py-2 text-xs text-slate-600;
 
-.autocomplete-status.error {
-  @apply text-red-600;
-}
+    &.error {
+      @apply text-red-600;
+    }
+  }
 
-.autocomplete-list {
-  @apply max-h-64 overflow-y-auto;
-}
+  .list {
+    @apply max-h-64 overflow-y-auto;
+  }
 
-.autocomplete-option {
-  @apply px-3 py-2 text-sm text-slate-800 cursor-pointer hover:bg-slate-100;
-}
+  .option {
+    @apply px-3 py-2 text-sm text-slate-800 cursor-pointer hover:bg-slate-100;
+  }
 
-.autocomplete-main {
-  @apply font-medium;
-}
+  .main {
+    @apply font-medium;
+  }
 
-.autocomplete-secondary {
-  @apply ml-1 text-xs text-slate-500;
+  .secondary {
+    @apply ml-1 text-xs text-slate-500;
+  }
 }
 </style>
