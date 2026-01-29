@@ -40,14 +40,17 @@ We cannot use the live trainline.com API:
 
 ## Limitations and Future Improvements
 
+- Type definitions and safety
+- Production-ready error handling
 - Animation visual tuning and fixing sort relaunch animation bug
 - Dynamic generative mock data
 - Loading state for autocomplete
-- No explicit localization of time handling
-- E2E tests (cypress)
-- Visual regression tests
+- Timezone awareness
+- more tests for edge cases
+- test: E2E tests, visual regression tests, accessibility tests
 - Keyboard support for autocomplete
 - API rate limiting
+- Loading skeletons
 - etc
 
 ## Installation
