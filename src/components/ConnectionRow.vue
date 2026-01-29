@@ -18,9 +18,9 @@ function toggle() {
 
 <template>
   <tr class="connection-row" @click="toggle">
-    <td>{{ connection.departure_station }}</td>
-    <td>{{ connection.arrival_station }}</td>
-    <td>
+    <td data-label="Departure">{{ connection.departure_station }}</td>
+    <td data-label="Arrival">{{ connection.arrival_station }}</td>
+    <td data-label="Departure Time">
       {{
         new Date(connection.departure_at).toLocaleTimeString([], {
           hour: "2-digit",
@@ -28,7 +28,7 @@ function toggle() {
         })
       }}
     </td>
-    <td>
+    <td data-label="Arrival Time">
       {{
         new Date(connection.arrival_at).toLocaleTimeString([], {
           hour: "2-digit",
@@ -36,9 +36,9 @@ function toggle() {
         })
       }}
     </td>
-    <td>{{ connection.duration_in_minutes }} min</td>
-    <td>{{ connection.changeovers }}</td>
-    <td>
+    <td data-label="Duration">{{ connection.duration_in_minutes }} min</td>
+    <td data-label="Changeovers">{{ connection.changeovers }}</td>
+    <td data-label="Price">
       <div class="price-cell">
         <span>£{{ (connection.fares?.[0]?.price_in_cents ?? 0) / 100 }}</span>
         <span v-if="connection.fares?.length > 1" class="expand-indicator">
@@ -63,6 +63,10 @@ function toggle() {
   @apply flex items-center gap-2;
 }
 
+.price-cell > span:first-child {
+  @apply text-lg font-semibold text-slate-900;
+}
+
 .expand-indicator {
   @apply text-xs text-blue-600 font-medium;
 }
@@ -74,6 +78,22 @@ function toggle() {
 .fare-cell {
   @apply p-0 overflow-hidden;
   animation: slideDown 0.3s ease-out;
+}
+
+@media (max-width: 768px) {
+  .price-cell {
+    @apply flex-col items-end gap-1;
+  }
+
+  .fare-row {
+    display: block;
+    margin: -16px 0 0 0;
+    padding: 0 12px 12px 12px;
+  }
+
+  .fare-cell {
+    padding: 0;
+  }
 }
 
 @keyframes slideDown {

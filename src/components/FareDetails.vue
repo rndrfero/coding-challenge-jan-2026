@@ -38,5 +38,23 @@ const props = defineProps({
   .class {
     @apply text-xs flex-none text-right text-gray-500 min-w-[80px];
   }
+
+  @media (max-width: 768px) {
+    .item {
+      @apply flex-col items-stretch py-3 gap-2;
+    }
+
+    .name {
+      @apply min-w-0 text-base;
+    }
+
+    .price {
+      @apply text-lg text-left;
+    }
+
+    .class {
+      @apply min-w-0 text-left text-sm;
+    }
+  }
 }
 </style>

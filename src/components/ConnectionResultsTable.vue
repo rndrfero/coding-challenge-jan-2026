@@ -55,6 +55,17 @@ const sortedConnections = computed(() => {
       No connections yet. Try a search.
     </div>
     <div v-else class="table-wrapper">
+      <div class="mobile-sort">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" v-model="sortBy" class="sort-select">
+          <option value="departure_at">Departure Time (earliest)</option>
+          <option value="departure_at-desc">Departure Time (latest)</option>
+          <option value="duration">Duration (shortest)</option>
+          <option value="duration-desc">Duration (longest)</option>
+          <option value="price">Price (lowest)</option>
+          <option value="price-desc">Price (highest)</option>
+        </select>
+      </div>
       <table class="results-table">
         <thead>
           <tr>
@@ -130,6 +141,46 @@ const sortedConnections = computed(() => {
 
   td {
     @apply px-3 py-2 text-slate-800 whitespace-nowrap;
+  }
+
+  .mobile-sort {
+    @apply hidden;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-sort {
+      @apply flex items-center gap-2 mb-4;
+    }
+
+    .mobile-sort label {
+      @apply text-sm font-semibold text-slate-700;
+    }
+
+    .sort-select {
+      @apply flex-1 px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white text-slate-800;
+    }
+    thead {
+      @apply hidden;
+    }
+
+    tbody tr.connection-row {
+      @apply block mb-4 rounded-lg border border-slate-200 bg-white shadow-sm;
+      padding: 12px;
+    }
+
+    tbody tr.connection-row td {
+      @apply block text-right border-b border-slate-100;
+      padding: 8px 0;
+    }
+
+    tbody tr.connection-row td::before {
+      content: attr(data-label);
+      @apply float-left font-semibold text-slate-600;
+    }
+
+    tbody tr.connection-row td:last-child {
+      @apply border-b-0;
+    }
   }
 }
 </style>
