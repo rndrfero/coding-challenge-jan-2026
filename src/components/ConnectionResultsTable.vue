@@ -66,6 +66,7 @@ const sortedConnections = computed(() => {
           <option value="price-desc">Price (highest)</option>
         </select>
       </div>
+
       <table class="results-table">
         <thead>
           <tr>

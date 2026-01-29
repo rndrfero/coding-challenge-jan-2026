@@ -5,8 +5,8 @@ import ConnectionResultsTable from "./components/ConnectionResultsTable.vue";
 import { useConnectionsApi } from "./composables/useConnectionsApi";
 
 const formData = ref({
-  from: "Vienna",
-  to: "Berlin",
+  from: "",
+  to: "",
   departureAt: "2025-12-08T08:00",
   onlyDirect: false,
 });

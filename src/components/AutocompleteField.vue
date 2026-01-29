@@ -9,11 +9,9 @@ const props = defineProps({
   },
   value: {
     type: String,
-    default: "",
   },
   placeholder: {
     type: String,
-    default: "",
   },
 });
 
@@ -112,6 +110,7 @@ function handleBlur() {
 
   .panel {
     @apply absolute z-10 mt-1 w-full bg-white border border-slate-200 rounded-md shadow-md;
+    top: 60px;
   }
 
   .status {
