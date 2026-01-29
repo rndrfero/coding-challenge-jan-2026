@@ -7,7 +7,7 @@ import { useConnectionsApi } from "./composables/useConnectionsApi";
 const formData = ref({
   from: "Vienna",
   to: "Berlin",
-  departureAt: "2025-12-08",
+  departureAt: "2025-12-08T08:00",
   onlyDirect: false,
 });
 

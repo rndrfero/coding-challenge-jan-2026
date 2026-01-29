@@ -53,7 +53,7 @@ function submit() {
 
       <div class="field">
         <label>Departure</label>
-        <input type="date" v-model="departureAtValue" />
+        <input type="datetime-local" v-model="departureAtValue" />
       </div>
     </div>
 
