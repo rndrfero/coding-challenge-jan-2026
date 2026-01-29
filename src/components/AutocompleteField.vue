@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onUnmounted } from "vue";
 import { useAutocompleteApi } from "../composables/useAutocompleteApi";
 
 const props = defineProps({
@@ -20,8 +20,20 @@ const emit = defineEmits(["update:modelValue"]);
 const query = ref(props.modelValue || "");
 const isOpen = ref(false);
 let debounceTimer = null;
+let blurTimer = null;
 
 const { isLoading, error, results, fetchStations } = useAutocompleteApi();
+
+onUnmounted(() => {
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+    debounceTimer = null;
+  }
+  if (blurTimer) {
+    clearTimeout(blurTimer);
+    blurTimer = null;
+  }
+});
 
 watch(
   () => props.modelValue,
@@ -62,8 +74,12 @@ function selectOption(option) {
 
 function handleBlur() {
   // Delay closing so option mousedown can fire before blur hides the panel
-  setTimeout(() => {
+  if (blurTimer) {
+    clearTimeout(blurTimer);
+  }
+  blurTimer = setTimeout(() => {
     isOpen.value = false;
+    blurTimer = null;
   }, 100);
 }
 </script>
