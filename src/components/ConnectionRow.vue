@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import FareDetails from "./FareDetails.vue";
+import { formatTime, formatPrice } from "../utils/formatters";
 
 const props = defineProps({
   connection: {
@@ -21,26 +22,17 @@ function toggle() {
     <td data-label="Departure">{{ connection.departure_station }}</td>
     <td data-label="Arrival">{{ connection.arrival_station }}</td>
     <td data-label="Departure Time">
-      {{
-        new Date(connection.departure_at).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      }}
+      {{ formatTime(connection.departure_at) }}
     </td>
-    <td data-label="Arrival Time">
-      {{
-        new Date(connection.arrival_at).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      }}
-    </td>
+    <td data-label="Arrival Time">{{ formatTime(connection.arrival_at) }}</td>
     <td data-label="Duration">{{ connection.duration_in_minutes }} min</td>
     <td data-label="Changeovers">{{ connection.changeovers }}</td>
     <td data-label="Price">
       <div class="price-cell">
-        <span>£{{ (connection.fares?.[0]?.price_in_cents ?? 0) / 100 }}</span>
+        <span
+          >{{ connection.fares?.[0]?.currency }}
+          {{ formatPrice(connection.fares?.[0]?.price_in_cents) }}</span
+        >
         <span v-if="connection.fares?.length > 1" class="expand-indicator">
           {{ isExpanded ? "−" : "+" }} {{ connection.fares.length }} fares
         </span>

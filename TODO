@@ -1,5 +1,3 @@
-- animation / sort releaunch
-
 - animation tuning
 
 VITE_USE_REAL_AUTOCOMPLETE=true in an .env file
@@ -16,18 +14,14 @@ trainline.com - public API analyses:
 
 Although autocomplete CORS can be handled
 
-future development directions
-
 - better mock api for connections and date/time handling
 
-make autocomplete to react on name and translatedName
+We can not use trainline.com API
 
-- name vs. translated name on autocomplete.
+- CORS limitations (could be overcomed by proxy server)
+- JS execution API checks (difficult to hack)
 
-- trainline autocomplete format is real, connections are non-existent
+Future improvements:
 
-- sync names with real trainline
-
-- sync names from, to -> departure, arrival - and overall naming
-
-add checkbox for 'Show only direct connections (0 changeovers)' - add that fun
+- showing not first fare, but cheapest in row
+- animation visual tuning + fixing sort releaunch animation bug

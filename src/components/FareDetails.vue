@@ -1,4 +1,6 @@
 <script setup>
+import { formatPrice } from "../utils/formatters";
+
 const props = defineProps({
   fares: {
     type: Array,
@@ -12,7 +14,7 @@ const props = defineProps({
     <div v-for="(fare, index) in fares" :key="index" class="item">
       <div class="name">{{ fare.name }}</div>
       <div class="price">
-        {{ fare.currency }} {{ (fare.price_in_cents / 100).toFixed(2) }}
+        {{ fare.currency }} {{ formatPrice(fare.price_in_cents) }}
       </div>
       <div class="class">Class {{ fare.comfort_class }}</div>
     </div>
