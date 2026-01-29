@@ -51,6 +51,7 @@ async function handleInput(event) {
 
   if (debounceTimer) {
     clearTimeout(debounceTimer);
+    debounceTimer = null;
   }
 
   if (!value) {
@@ -61,7 +62,12 @@ async function handleInput(event) {
   isOpen.value = true;
 
   debounceTimer = setTimeout(async () => {
-    await fetchStations(value);
+    try {
+      await fetchStations(value);
+    } catch (err) {
+      // Ignore aborted requests - errors are handled by composable
+    }
+    debounceTimer = null;
   }, 300);
 }
 
