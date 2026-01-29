@@ -1,65 +1,62 @@
-## Evopark Coding Challenge – Trainline Connections SPA
+# Trainline Connections SPA
 
-This project implements the Trainline connections SPA challenge described in  
-[`evopark_coding_challenge.md`](https://gist.github.com/christianrolle/bec77ed8afa3be9ebeb3959a29772fde).
+Single-page application for searching train connections between cities.
 
-### Tech stack
+## Architecture
 
-- **Framework**: Vue 3 (Composition API, plain JavaScript)
-- **Bundler**: Vite
-- **Styling**: Tailwind CSS (utility classes + `@apply` in SFC `<style scoped>`)
-- **Mocking**: Mock Service Worker (MSW) for frontend-only API mocks
+Vue 3 with Composition API, Vite, Tailwind CSS, and MSW for API mocking. Uses composables for reusable logic and co-located tests.
 
-### Project structure (high level)
+## Test Data
 
-- `src/App.vue` – Single-page layout, wires form + results table + API composable.
-- `src/components/ConnectionSearchForm.vue` – From/To/Departure form.
-- `src/components/ConnectionResultsTable.vue` – Connections list/table UI.
-- `src/composables/useConnectionsApi.js` – Calls `POST /api/connections`, exposes `connections`, `isLoading`, `error`.
-- `src/composables/useAutocompleteApi.js` – Autocomplete composable with switchable mock/real base URL (stub for later).
-- `src/mocks/handlers.js` – MSW handlers for:
-  - `POST /api/connections` (returns mock data from `src/mocks/data/connections.json`)
-  - `GET /api/autocomplete` (simple mocked station suggestions)
-- `src/mocks/browser.js` – MSW `setupWorker` for the browser.
-- `public/mockServiceWorker.js` – **Generated** MSW worker script (project-agnostic, do not edit manually).
+Available cities for autocomplete: Vienna, Berlin, Paris, London, Rome, Madrid, Amsterdam, Prague.
 
-### MSW integration
+Example searches:
 
-- `src/main.js` imports `./assets/tailwind.css` and, in `DEV` mode, dynamically imports `src/mocks/browser.js` and starts the worker:
+- Vienna → Berlin
+- Paris → London
+- Rome → Madrid
+- Amsterdam → Prague
 
-  ```js
-  if (import.meta.env.DEV) {
-    import('./mocks/browser').then(({ worker }) => {
-      worker.start();
-    });
-  }
-  ```
+## API Limitations
 
-- All frontend API calls use `fetch`:
-  - `/api/connections` is always mocked by MSW.
-  - `/api/autocomplete` is currently mocked, but `useAutocompleteApi` is structured so a real endpoint can be plugged in later.
+We cannot use the live trainline.com API:
 
-### Tailwind CSS
+- CORS limitations (could be overcome by proxy server)
+- JS execution API checks (difficult to hack)
 
-- Configuration: `tailwind.config.cjs`
-- PostCSS: `postcss.config.cjs`
-- Entry stylesheet: `src/assets/tailwind.css` with:
+## Assumptions
 
-  ```css
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  ```
+- Connection API returns fares sorted by price (cheapest first)
+- Readability, simplicity and conventions represent code-quality metrics
+- Connection API data structure follows documented format
 
-- Components use Tailwind utility classes in templates and `@apply` inside `<style scoped>` blocks for small design tokens (e.g. `form-label`, `form-input`, `btn-primary`).
+## Limitations and Future Improvements
 
-### Development
+- Animation visual tuning and fixing sort relaunch animation bug
+- Dynamic generative mock data - mock API has no datetime filtering
+- No accessibility (ARIA) attributes
+- Debounce API calls, especially autocomplete
+- Add loading state for autocomplete
+- No explicit localization of time handling
+
+## Installation
 
 ```bash
-nvm use 22          # or ensure Node 22 is active
 npm install
-npm run dev         # starts Vite dev server with MSW in dev mode
 ```
 
-Open `http://localhost:5173/`, adjust the form, and click **Search**.  
-The app will call the mocked `POST /api/connections` endpoint and render the table of connections from `src/mocks/data/connections.json`.
+## Running
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:5173/` in your browser.
+
+## Testing
+
+```bash
+npm run test:run
+```
+
+Watch mode: `npm test`
