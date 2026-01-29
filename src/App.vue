@@ -6,8 +6,8 @@ import { useConnectionsApi } from "./composables/useConnectionsApi";
 import { normalize } from "./utils/formatters";
 
 const formData = ref({
-  from: "",
-  to: "",
+  from: null,
+  to: null,
   departureAt: new Date().toISOString().slice(0, 16),
   onlyDirect: false,
 });

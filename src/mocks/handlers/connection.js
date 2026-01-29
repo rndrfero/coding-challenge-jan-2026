@@ -13,6 +13,9 @@ export const connectionHandlers = [
     const to = body.to;
     const maxChangeovers = body.maxChangeovers;
 
+    const departureAt = body.departureAt;
+    const searchDateTime = departureAt ? new Date(departureAt).getTime() : null;
+
     const filtered = connections.filter((segment) => {
       const matchesRoute =
         equalsOperator(segment.departure_station, from) &&
@@ -22,7 +25,11 @@ export const connectionHandlers = [
         typeof maxChangeovers !== "number" ||
         segment.changeovers <= maxChangeovers;
 
-      return matchesRoute && matchesChangeovers;
+      const matchesDateTime =
+        !searchDateTime ||
+        new Date(segment.departure_at).getTime() >= searchDateTime;
+
+      return matchesRoute && matchesChangeovers && matchesDateTime;
     });
 
     return HttpResponse.json(filtered);

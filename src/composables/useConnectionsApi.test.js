@@ -154,9 +154,30 @@ describe("useConnectionsApi", () => {
     await searchConnections({
       from: "Vienna",
       to: "Berlin",
-      departureAt: "2025-12-08T08:00",
+      departureAt: "2026-06-15T08:00",
     });
 
     expect(connections.value).toEqual([]);
+  });
+
+  it("validates response is an array", async () => {
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ error: "Invalid format" }),
+    });
+
+    const { error, searchConnections } = useConnectionsApi();
+
+    try {
+      await searchConnections({
+        from: "Vienna",
+        to: "Berlin",
+        departureAt: "2026-06-15T08:00",
+      });
+    } catch (err) {
+      // Error is re-thrown
+    }
+
+    expect(error.value).toBe("Invalid response format: expected array");
   });
 });

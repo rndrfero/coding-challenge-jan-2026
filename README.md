@@ -24,11 +24,18 @@ We cannot use the live trainline.com API:
 - CORS limitations (could be overcome by proxy server)
 - JS execution API checks (difficult to hack)
 
+## UI limitations
+
+- proposed table format (gist) show only departure/arrival times, not datetimes, but dates can differ
+
 ## Assumptions
 
-- Connection API returns fares sorted by price (cheapest first)
 - Readability, simplicity and conventions represent code-quality metrics
+- aesthetics (colors, icons etc) are not important - KISS approach
+- API returns connections allready sorted by time distance
+- API returns fares sorted by price (cheapest first)
 - Connection API data structure follows documented format
+- Autocomplete API data structure follows trainline.com format
 
 ## Limitations and Future Improvements
 

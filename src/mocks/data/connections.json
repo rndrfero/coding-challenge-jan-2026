@@ -1,9 +1,9 @@
 [
   {
     "departure_station": "Vienna",
-    "departure_at": "2025-12-08T08:00:00",
+    "departure_at": "2026-06-15T08:00:00",
     "arrival_station": "Berlin",
-    "arrival_at": "2025-12-08T12:30:00",
+    "arrival_at": "2026-06-15T12:30:00",
     "duration_in_minutes": 270,
     "changeovers": 1,
     "products": ["train"],
@@ -24,9 +24,9 @@
   },
   {
     "departure_station": "Vienna",
-    "departure_at": "2025-12-08T10:00:00",
+    "departure_at": "2026-06-15T10:00:00",
     "arrival_station": "Berlin",
-    "arrival_at": "2025-12-08T15:00:00",
+    "arrival_at": "2026-06-15T15:00:00",
     "duration_in_minutes": 300,
     "changeovers": 0,
     "products": ["train"],
@@ -41,9 +41,9 @@
   },
   {
     "departure_station": "Vienna",
-    "departure_at": "2025-12-08T14:30:00",
+    "departure_at": "2026-06-15T14:30:00",
     "arrival_station": "Berlin",
-    "arrival_at": "2025-12-08T20:00:00",
+    "arrival_at": "2026-06-15T20:00:00",
     "duration_in_minutes": 330,
     "changeovers": 2,
     "products": ["train"],
@@ -71,9 +71,9 @@
 
   {
     "departure_station": "Paris",
-    "departure_at": "2025-12-08T07:15:00",
+    "departure_at": "2026-06-15T07:15:00",
     "arrival_station": "London",
-    "arrival_at": "2025-12-08T08:45:00",
+    "arrival_at": "2026-06-15T08:45:00",
     "duration_in_minutes": 90,
     "changeovers": 0,
     "products": ["train"],
@@ -94,9 +94,9 @@
   },
   {
     "departure_station": "Paris",
-    "departure_at": "2025-12-08T09:30:00",
+    "departure_at": "2026-06-15T09:30:00",
     "arrival_station": "London",
-    "arrival_at": "2025-12-08T11:00:00",
+    "arrival_at": "2026-06-15T11:00:00",
     "duration_in_minutes": 90,
     "changeovers": 0,
     "products": ["train"],
@@ -111,9 +111,9 @@
   },
   {
     "departure_station": "Paris",
-    "departure_at": "2025-12-08T13:00:00",
+    "departure_at": "2026-06-15T13:00:00",
     "arrival_station": "London",
-    "arrival_at": "2025-12-08T14:30:00",
+    "arrival_at": "2026-06-15T14:30:00",
     "duration_in_minutes": 90,
     "changeovers": 0,
     "products": ["train"],
@@ -135,9 +135,9 @@
 
   {
     "departure_station": "Rome",
-    "departure_at": "2025-12-08T06:45:00",
+    "departure_at": "2026-06-15T06:45:00",
     "arrival_station": "Madrid",
-    "arrival_at": "2025-12-08T12:30:00",
+    "arrival_at": "2026-06-15T12:30:00",
     "duration_in_minutes": 345,
     "changeovers": 1,
     "products": ["train"],
@@ -152,9 +152,9 @@
   },
   {
     "departure_station": "Rome",
-    "departure_at": "2025-12-08T11:00:00",
+    "departure_at": "2026-06-15T11:00:00",
     "arrival_station": "Madrid",
-    "arrival_at": "2025-12-08T17:00:00",
+    "arrival_at": "2026-06-15T17:00:00",
     "duration_in_minutes": 360,
     "changeovers": 2,
     "products": ["train"],
@@ -176,9 +176,9 @@
 
   {
     "departure_station": "Amsterdam",
-    "departure_at": "2025-12-08T08:20:00",
+    "departure_at": "2026-06-15T08:20:00",
     "arrival_station": "Prague",
-    "arrival_at": "2025-12-08T16:10:00",
+    "arrival_at": "2026-06-15T16:10:00",
     "duration_in_minutes": 470,
     "changeovers": 2,
     "products": ["train"],
@@ -199,9 +199,9 @@
   },
   {
     "departure_station": "Amsterdam",
-    "departure_at": "2025-12-08T12:00:00",
+    "departure_at": "2026-06-15T12:00:00",
     "arrival_station": "Prague",
-    "arrival_at": "2025-12-08T20:00:00",
+    "arrival_at": "2026-06-15T20:00:00",
     "duration_in_minutes": 480,
     "changeovers": 1,
     "products": ["train"],
