@@ -47,6 +47,7 @@ We cannot use the live trainline.com API:
 - E2E tests (cypress)
 - Visual regression tests
 - Keyboard support for autocomplete
+- API rate limiting
 - etc
 
 ## Installation
