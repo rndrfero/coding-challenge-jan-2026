@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import autocompleteData from "../data/autocomplete.json";
-import { normalize } from "../matchUtils";
+import { normalize } from "../../utils/formatters";
 
 function matchOperator(value, query) {
   const v = normalize(value);
@@ -26,4 +26,3 @@ export const autocompleteHandlers = [
     return HttpResponse.json({ searchLocations: matches });
   }),
 ];
-

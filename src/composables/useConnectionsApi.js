@@ -17,7 +17,12 @@ export function useConnectionsApi() {
         throw new Error("Failed to fetch connections");
       }
 
-      connections.value = await res.json();
+      const data = await res.json();
+      if (!Array.isArray(data)) {
+        throw new Error("Invalid response format: expected array");
+      }
+
+      connections.value = data;
     });
   }
 

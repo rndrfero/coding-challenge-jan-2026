@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import connections from "../data/connections.json";
-import { normalize } from "../matchUtils";
+import { normalize } from "../../utils/formatters";
 
 function equalsOperator(a, b) {
   return normalize(a) === normalize(b);

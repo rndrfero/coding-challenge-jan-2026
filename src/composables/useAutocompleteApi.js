@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { useApiRequest } from "./useApiRequest";
-import { sanitizeSearchQuery } from "../utils/sanitize";
+import { sanitizeSearchQuery } from "../utils/formatters";
 
 export function useAutocompleteApi() {
   const { isLoading, error, executeRequest } = useApiRequest();
@@ -23,6 +23,9 @@ export function useAutocompleteApi() {
       }
       const data = await res.json();
       // Expecting shape: { searchLocations: [...] }
+      if (!data || typeof data !== "object") {
+        throw new Error("Invalid response format: expected object");
+      }
       results.value = Array.isArray(data.searchLocations)
         ? data.searchLocations
         : [];

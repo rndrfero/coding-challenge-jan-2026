@@ -3,6 +3,7 @@ import { ref } from "vue";
 import ConnectionSearchForm from "./components/ConnectionSearchForm.vue";
 import ConnectionResultsTable from "./components/ConnectionResultsTable.vue";
 import { useConnectionsApi } from "./composables/useConnectionsApi";
+import { normalize } from "./utils/formatters";
 
 const formData = ref({
   from: "",
@@ -29,6 +30,12 @@ function handleSearch() {
   // Validate to field
   if (!formData.value.to?.trim()) {
     validationError.value = "Please enter an arrival station.";
+    return;
+  }
+
+  // Validate from and to are different
+  if (normalize(formData.value.from) === normalize(formData.value.to)) {
+    validationError.value = "Departure and arrival stations must be different.";
     return;
   }
 
