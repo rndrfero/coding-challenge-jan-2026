@@ -1,20 +1,31 @@
 <script setup>
+import { computed } from "vue";
 import AutocompleteField from "./AutocompleteField.vue";
 
 const props = defineProps({
-  from: String,
-  to: String,
-  departureAt: String,
-  onlyDirect: Boolean,
+  modelValue: {
+    type: Object,
+    required: true,
+  },
 });
 
-const emits = defineEmits([
-  "update:from",
-  "update:to",
-  "update:departureAt",
-  "update:onlyDirect",
-  "search",
-]);
+const emits = defineEmits(["update:modelValue", "search"]);
+
+function createFieldComputed(field) {
+  return computed({
+    get: () => props.modelValue[field],
+    set: (value) =>
+      emits("update:modelValue", {
+        ...props.modelValue,
+        [field]: value,
+      }),
+  });
+}
+
+const fromValue = createFieldComputed("from");
+const toValue = createFieldComputed("to");
+const departureAtValue = createFieldComputed("departureAt");
+const onlyDirectValue = createFieldComputed("onlyDirect");
 
 function submit() {
   emits("search");
@@ -27,38 +38,28 @@ function submit() {
       <div class="field">
         <AutocompleteField
           label="From"
-          :model-value="from"
+          v-model:value="fromValue"
           placeholder="Start typing a city or station"
-          @update:model-value="$emit('update:from', $event)"
         />
       </div>
 
       <div class="field">
         <AutocompleteField
           label="To"
-          :model-value="to"
+          v-model:value="toValue"
           placeholder="Start typing a city or station"
-          @update:model-value="$emit('update:to', $event)"
         />
       </div>
 
       <div class="field">
         <label>Departure</label>
-        <input
-          type="date"
-          :value="departureAt"
-          @input="$emit('update:departureAt', $event.target.value)"
-        />
+        <input type="date" v-model="departureAtValue" />
       </div>
     </div>
 
     <div class="options-row">
       <label class="option">
-        <input
-          type="checkbox"
-          :checked="onlyDirect"
-          @change="$emit('update:onlyDirect', $event.target.checked)"
-        />
+        <input type="checkbox" v-model="onlyDirectValue" />
         Show only direct connections (0 changeovers)
       </label>
     </div>

@@ -7,7 +7,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  modelValue: {
+  value: {
     type: String,
     default: "",
   },
@@ -17,15 +17,15 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:value"]);
 
-const query = ref(props.modelValue || "");
+const query = ref(props.value || "");
 const isOpen = ref(false);
 
 const { isLoading, error, results, fetchStations } = useAutocompleteApi();
 
 watch(
-  () => props.modelValue,
+  () => props.value,
   (value) => {
     if (value !== query.value) {
       query.value = value || "";
@@ -36,7 +36,7 @@ watch(
 async function handleInput(event) {
   const value = event.target.value;
   query.value = value;
-  emit("update:modelValue", value);
+  emit("update:value", value);
 
   if (!value) {
     isOpen.value = false;
@@ -50,7 +50,7 @@ async function handleInput(event) {
 function selectOption(option) {
   const value = option.translatedName;
   query.value = value;
-  emit("update:modelValue", value);
+  emit("update:value", value);
   isOpen.value = false;
 }
 
@@ -93,7 +93,7 @@ function handleBlur() {
           <span class="secondary"> ({{ item.name }}) </span>
         </li>
       </ul>
-      <div v-else class="autocomplete-status">No results</div>
+      <div v-else class="status">No results</div>
     </div>
   </div>
 </template>

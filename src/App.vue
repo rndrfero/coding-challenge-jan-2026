@@ -4,22 +4,24 @@ import ConnectionSearchForm from "./components/ConnectionSearchForm.vue";
 import ConnectionResultsTable from "./components/ConnectionResultsTable.vue";
 import { useConnectionsApi } from "./composables/useConnectionsApi";
 
-const from = ref();
-const to = ref();
-const departureAt = ref("2025-12-08");
-const onlyDirect = ref(false);
+const formData = ref({
+  from: "",
+  to: "",
+  departureAt: "2025-12-08",
+  onlyDirect: false,
+});
 
 const { isLoading, error, connections, searchConnections } =
   useConnectionsApi();
 
 function handleSearch() {
   const payload = {
-    from: from.value,
-    to: to.value,
-    departureAt: departureAt.value,
+    from: formData.value.from,
+    to: formData.value.to,
+    departureAt: formData.value.departureAt,
   };
 
-  if (onlyDirect.value) {
+  if (formData.value.onlyDirect) {
     payload.maxChangeovers = 0;
   }
 
@@ -32,13 +34,7 @@ function handleSearch() {
     <div class="page-inner">
       <h1 class="page-title">Trainline Connections</h1>
 
-      <ConnectionSearchForm
-        v-model:from="from"
-        v-model:to="to"
-        v-model:departureAt="departureAt"
-        v-model:onlyDirect="onlyDirect"
-        @search="handleSearch"
-      />
+      <ConnectionSearchForm v-model="formData" @search="handleSearch" />
 
       <div class="results-section">
         <ConnectionResultsTable
