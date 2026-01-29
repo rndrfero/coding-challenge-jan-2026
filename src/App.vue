@@ -7,16 +7,23 @@ import { useConnectionsApi } from "./composables/useConnectionsApi";
 const from = ref();
 const to = ref();
 const departureAt = ref("2025-12-08");
+const onlyDirect = ref(false);
 
 const { isLoading, error, connections, searchConnections } =
   useConnectionsApi();
 
 function handleSearch() {
-  searchConnections({
+  const payload = {
     from: from.value,
     to: to.value,
     departureAt: departureAt.value,
-  });
+  };
+
+  if (onlyDirect.value) {
+    payload.maxChangeovers = 0;
+  }
+
+  searchConnections(payload);
 }
 </script>
 
@@ -29,6 +36,7 @@ function handleSearch() {
         v-model:from="from"
         v-model:to="to"
         v-model:departureAt="departureAt"
+        v-model:onlyDirect="onlyDirect"
         @search="handleSearch"
       />
 

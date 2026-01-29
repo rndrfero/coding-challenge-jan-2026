@@ -11,12 +11,18 @@ export const connectionHandlers = [
     const body = await request.json();
     const from = body.from;
     const to = body.to;
+    const maxChangeovers = body.maxChangeovers;
 
     const filtered = connections.filter((segment) => {
-      return (
+      const matchesRoute =
         equalsOperator(segment.departure_station, from) &&
-        equalsOperator(segment.arrival_station, to)
-      );
+        equalsOperator(segment.arrival_station, to);
+
+      const matchesChangeovers =
+        typeof maxChangeovers !== "number" ||
+        segment.changeovers <= maxChangeovers;
+
+      return matchesRoute && matchesChangeovers;
     });
 
     return HttpResponse.json(filtered);

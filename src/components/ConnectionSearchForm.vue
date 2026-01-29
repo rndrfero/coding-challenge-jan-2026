@@ -5,12 +5,14 @@ const props = defineProps({
   from: String,
   to: String,
   departureAt: String,
+  onlyDirect: Boolean,
 });
 
 const emits = defineEmits([
   "update:from",
   "update:to",
   "update:departureAt",
+  "update:onlyDirect",
   "search",
 ]);
 
@@ -50,6 +52,17 @@ function submit() {
       </div>
     </div>
 
+    <div class="options-row">
+      <label class="option">
+        <input
+          type="checkbox"
+          :checked="onlyDirect"
+          @change="$emit('update:onlyDirect', $event.target.checked)"
+        />
+        Show only direct connections (0 changeovers)
+      </label>
+    </div>
+
     <div class="actions">
       <button class="submit-button" type="submit">Search</button>
     </div>
@@ -70,6 +83,18 @@ function submit() {
 
   label {
     @apply text-sm font-medium text-slate-700;
+  }
+
+  .options-row {
+    @apply flex items-center;
+
+    .option {
+      @apply inline-flex items-center gap-2 text-sm text-slate-700;
+
+      input[type="checkbox"] {
+        @apply w-4 h-4;
+      }
+    }
   }
 
   input {
