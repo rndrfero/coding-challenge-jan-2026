@@ -1,51 +1,53 @@
-# Trainline Connections SPA
+# 🚂 Trainline Connections SPA
 
 Single-page application for searching train connections between cities.
 
-## Architecture
+## ⚙️ Architecture
 
-Vue 3 with Composition API, Vite. Uses composables for reusable logic and co-located tests.
+Vue 3 with Composition API, Vite. Composables for logic, co-located tests. No inline CSS — visuals are separated.
 
 ### Dependencies
 
-- Tailwind CSS for styling
-- MSW for API mocking
-- Zod for API type safety
-- useFetch for race condition handling
+- **@vueuse/core** — composables (useFetch for race condition handling)
+- **Zod** — runtime API validation and type safety
+- **Tailwind CSS** — utility-first styling
+- **Vitest** — unit testing framework
+- **@vue/test-utils** — Vue component testing utilities
+- **MSW** — API mocking for development and testing
 
-## Test Data
+## 🧪 Test Data - End user testing
 
-Available cities for autocomplete: Vienna, Berlin, Paris, London, Rome, Madrid, Amsterdam, Prague.
+Available cities for autocomplete: **Vienna, Berlin, Paris, London, Rome, Madrid, Amsterdam, Prague**.
 
-Example searches:
+**Example searches:**
 
 - Vienna → Berlin
 - Paris → London
 - Rome → Madrid
 - Amsterdam → Prague
 
-## API Limitations
+## ⚠️ Live API Limitations
 
 We cannot use the live trainline.com API:
 
 - CORS limitations (could be overcome by proxy server)
 - JS execution API checks (difficult to hack)
 
-## UI limitations
+## 📱 UI Limitations
 
-- proposed table format (gist) show only departure/arrival times, not datetimes, but dates can differ
+- Proposed table format (gist) shows only departure/arrival times, not datetimes, but dates can differ
 
-## Assumptions
+## 📋 Assumptions
 
 - Readability, simplicity and conventions represent code-quality metrics
-- aesthetics (colors, icons etc) are not important - KISS approach
-- self-explanatory code without comments is prefered, comprehensive documentation is not needed in AI era
-- API returns connections allready sorted by time distance
+- Aesthetics (colors, icons etc) are not important — KISS approach
+- Self-explanatory code without comments is preferred, comprehensive documentation is not needed in AI era
+- API returns connections already sorted by time distance
 - API returns fares sorted by price (cheapest first)
 - Connection API data structure follows documented format
 - Autocomplete API data structure follows trainline.com format
 
-## Limitations and Future Improvements
+## 🔮 Limitations and Future Improvements
 
 - Type definitions and safety
 - Production-ready error handling
@@ -53,20 +55,22 @@ We cannot use the live trainline.com API:
 - Dynamic generative mock data
 - Loading state for autocomplete
 - Timezone awareness
-- more tests for edge cases
-- test: E2E tests, visual regression tests, accessibility tests
+- More tests for edge cases
+- E2E tests, visual regression tests, accessibility tests
 - Keyboard support for autocomplete
 - API rate limiting
 - Loading skeletons
 - etc
 
-## Installation
+## 🚀 Quick Start
+
+### Installation
 
 ```bash
 npm install
 ```
 
-## Running
+### Running
 
 ```bash
 npm run dev
@@ -74,7 +78,7 @@ npm run dev
 
 Open `http://localhost:5173/` in your browser.
 
-## Testing
+### Testing
 
 ```bash
 npm run test:run
