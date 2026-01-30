@@ -2,7 +2,11 @@ import { ref, computed } from "vue";
 import { useFetch } from "@vueuse/core";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants";
 import { ConnectionsResponseSchema } from "../schemas/connections";
-import { checkHttpError, createErrorComputed, snakeToCamel } from "./useApiHelpers";
+import {
+  checkHttpError,
+  createErrorComputed,
+  snakeToCamel,
+} from "./useApiHelpers";
 
 export function useConnectionsApi() {
   const connections = ref([]);

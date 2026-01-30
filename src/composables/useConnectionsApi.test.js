@@ -54,7 +54,9 @@ describe("useConnectionsApi", () => {
       departureAt: "2025-12-08T08:00",
     });
 
-    expect(connections.value).toEqual(snakeToCamel(ConnectionsResponseSchema.parse(mockConnections)));
+    expect(connections.value).toEqual(
+      snakeToCamel(ConnectionsResponseSchema.parse(mockConnections)),
+    );
     expect(global.fetch).toHaveBeenCalledWith("/api/connections", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

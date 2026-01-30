@@ -41,8 +41,12 @@ export function snakeToCamel(obj) {
   if (Array.isArray(obj)) return obj.map(snakeToCamel);
   if (!isPlainObject(obj)) return obj;
 
-  return transform(obj, (result, value, key) => {
-    const camelKey = camelCase(key);
-    result[camelKey] = snakeToCamel(value);
-  }, {});
+  return transform(
+    obj,
+    (result, value, key) => {
+      const camelKey = camelCase(key);
+      result[camelKey] = snakeToCamel(value);
+    },
+    {},
+  );
 }
