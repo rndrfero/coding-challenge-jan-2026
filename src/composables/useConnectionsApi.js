@@ -1,34 +1,65 @@
-import { ref } from "vue";
-import { useApiRequest } from "./useApiRequest";
-import { apiClient } from "../api/client";
+import { ref, computed } from "vue";
+import { useFetch } from "@vueuse/core";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants";
 import { ConnectionsResponseSchema } from "../schemas/connections";
+import { checkHttpError, createErrorComputed } from "./useApiHelpers";
 
 export function useConnectionsApi() {
-  const { isLoading, error, executeRequest } = useApiRequest();
   const connections = ref([]);
+  const payload = ref(null);
+
+  const url = computed(() =>
+    payload.value ? API_ENDPOINTS.CONNECTIONS : null,
+  );
+
+  const transformError = (error, response) => {
+    if (error.name === "ApiError" || (response && !response.ok)) {
+      return new Error(ERROR_MESSAGES.FETCH_CONNECTIONS);
+    }
+    if (error.name === "ZodError") {
+      return new Error(ERROR_MESSAGES.INVALID_RESPONSE_ARRAY);
+    }
+    return error;
+  };
+
+  const {
+    isFetching,
+    error: fetchError,
+    execute,
+  } = useFetch(url, {
+    immediate: false,
+    refetch: false,
+    beforeFetch: ({ options }) => {
+      options.method = "POST";
+      options.headers = {
+        "Content-Type": "application/json",
+        ...options.headers,
+      };
+      options.body = JSON.stringify(payload.value);
+      return { options };
+    },
+    afterFetch: ({ response, data }) => {
+      checkHttpError(response);
+
+      const validated = ConnectionsResponseSchema.parse(data);
+      connections.value = validated;
+      return { data };
+    },
+    onFetchError: ({ error, response }) => {
+      const transformedError = transformError(error, response);
+      return { error: transformedError };
+    },
+  }).json();
+
+  const error = createErrorComputed(fetchError);
 
   async function searchConnections(params) {
-    await executeRequest(async () => {
-      try {
-        const res = await apiClient.post(API_ENDPOINTS.CONNECTIONS, params);
-
-        const data = await res.json();
-        connections.value = ConnectionsResponseSchema.parse(data);
-      } catch (err) {
-        if (err.name === "ZodError") {
-          throw new Error(ERROR_MESSAGES.INVALID_RESPONSE_ARRAY);
-        }
-        if (err.name === "ApiError") {
-          throw new Error(ERROR_MESSAGES.FETCH_CONNECTIONS);
-        }
-        throw err;
-      }
-    });
+    payload.value = params;
+    await execute(true);
   }
 
   return {
-    isLoading,
+    isFetching,
     error,
     connections,
     searchConnections,

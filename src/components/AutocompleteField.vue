@@ -23,7 +23,7 @@ const isOpen = ref(false);
 let debounceTimer = null;
 let blurTimer = null;
 
-const { isLoading, error, results, fetchStations } = useAutocompleteApi();
+const { isFetching, error, results, fetchStations } = useAutocompleteApi();
 
 onUnmounted(() => {
   if (debounceTimer) {
@@ -115,7 +115,7 @@ function handleBlur() {
       role="listbox"
       :aria-label="`${label} suggestions`"
     >
-      <div v-if="isLoading" class="status" aria-live="polite" aria-busy="true">
+      <div v-if="isFetching" class="status" aria-live="polite" aria-busy="true">
         Searching…
       </div>
       <div v-else-if="error" class="status error" aria-live="assertive">

@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { useConnectionsApi } from "./useConnectionsApi";
+import { createMockResponse } from "./useApiHelpers";
 
 describe("useConnectionsApi", () => {
   beforeEach(() => {
@@ -12,10 +13,10 @@ describe("useConnectionsApi", () => {
   });
 
   it("initializes with empty connections", () => {
-    const { connections, isLoading, error } = useConnectionsApi();
+    const { connections, isFetching, error } = useConnectionsApi();
 
     expect(connections.value).toEqual([]);
-    expect(isLoading.value).toBe(false);
+    expect(isFetching.value).toBe(false);
     expect(error.value).toBe(null);
   });
 
@@ -40,10 +41,9 @@ describe("useConnectionsApi", () => {
       },
     ];
 
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockConnections,
-    });
+    global.fetch.mockResolvedValueOnce(
+      createMockResponse(mockConnections, { ok: true }),
+    );
 
     const { connections, searchConnections } = useConnectionsApi();
 
@@ -62,14 +62,12 @@ describe("useConnectionsApi", () => {
         to: "Berlin",
         departureAt: "2025-12-08T08:00",
       }),
+      signal: expect.any(AbortSignal),
     });
   });
 
   it("includes maxChangeovers in request when provided", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => [],
-    });
+    global.fetch.mockResolvedValueOnce(createMockResponse([], { ok: true }));
 
     const { searchConnections } = useConnectionsApi();
 
@@ -89,13 +87,12 @@ describe("useConnectionsApi", () => {
         departureAt: "2025-12-08T08:00",
         maxChangeovers: 0,
       }),
+      signal: expect.any(AbortSignal),
     });
   });
 
   it("handles API errors", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: false,
-    });
+    global.fetch.mockResolvedValueOnce(createMockResponse(null, { ok: false }));
 
     const { error, searchConnections } = useConnectionsApi();
 
@@ -134,11 +131,11 @@ describe("useConnectionsApi", () => {
     global.fetch.mockImplementation(
       () =>
         new Promise((resolve) =>
-          setTimeout(() => resolve({ ok: true, json: async () => [] }), 10),
+          setTimeout(() => resolve(createMockResponse([], { ok: true })), 10),
         ),
     );
 
-    const { isLoading, searchConnections } = useConnectionsApi();
+    const { isFetching, searchConnections } = useConnectionsApi();
 
     const promise = searchConnections({
       from: "Vienna",
@@ -146,16 +143,13 @@ describe("useConnectionsApi", () => {
       departureAt: "2025-12-08T08:00",
     });
 
-    expect(isLoading.value).toBe(true);
+    expect(isFetching.value).toBe(true);
     await promise;
-    expect(isLoading.value).toBe(false);
+    expect(isFetching.value).toBe(false);
   });
 
   it("handles empty results", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => [],
-    });
+    global.fetch.mockResolvedValueOnce(createMockResponse([], { ok: true }));
 
     const { connections, searchConnections } = useConnectionsApi();
 
@@ -169,10 +163,9 @@ describe("useConnectionsApi", () => {
   });
 
   it("validates response is an array", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ error: "Invalid format" }),
-    });
+    global.fetch.mockResolvedValueOnce(
+      createMockResponse({ error: "Invalid format" }, { ok: true }),
+    );
 
     const { error, searchConnections } = useConnectionsApi();
 

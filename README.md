@@ -10,7 +10,8 @@ Vue 3 with Composition API, Vite. Uses composables for reusable logic and co-loc
 
 - Tailwind CSS for styling
 - MSW for API mocking
-- Zod for type safety
+- Zod for API type safety
+- useFetch for race condition handling
 
 ## Test Data
 

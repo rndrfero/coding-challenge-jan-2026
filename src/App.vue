@@ -12,7 +12,7 @@ const formData = ref({
   onlyDirect: false,
 });
 
-const { isLoading, error, connections, searchConnections } =
+const { isFetching, error, connections, searchConnections } =
   useConnectionsApi();
 
 const validationError = ref(null);
@@ -82,7 +82,7 @@ function handleSearch() {
       <div class="results-section">
         <ConnectionResultsTable
           :connections="connections"
-          :is-loading="isLoading"
+          :is-fetching="isFetching"
           :error="error"
         />
       </div>

@@ -11,7 +11,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: [],
-        isLoading: true,
+        isFetching: true,
         error: null,
       },
     });
@@ -23,7 +23,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: [],
-        isLoading: false,
+        isFetching: false,
         error: "Failed to fetch",
       },
     });
@@ -35,7 +35,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: [],
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });
@@ -47,7 +47,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: mockConnections,
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });
@@ -60,7 +60,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: mockConnections,
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });
@@ -87,7 +87,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: mockConnections,
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });
@@ -109,7 +109,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: mockConnections,
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });
@@ -130,7 +130,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: mockConnections,
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });
@@ -150,7 +150,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: mockConnections,
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });
@@ -167,7 +167,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: mockConnections,
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });
@@ -189,7 +189,7 @@ describe("ConnectionResultsTable", () => {
     const wrapper = mount(ConnectionResultsTable, {
       props: {
         connections: connectionsWithoutFares,
-        isLoading: false,
+        isFetching: false,
         error: null,
       },
     });

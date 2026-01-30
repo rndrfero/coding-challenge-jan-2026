@@ -24,7 +24,7 @@ describe("AutocompleteField", () => {
     mockError = ref(null);
 
     useAutocompleteApi.mockReturnValue({
-      isLoading: mockIsLoading,
+      isFetching: mockIsLoading,
       error: mockError,
       results: mockResults,
       fetchStations: mockFetchStations,

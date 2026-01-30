@@ -4,7 +4,7 @@ import ConnectionRow from "./ConnectionRow.vue";
 
 const props = defineProps({
   connections: { type: Array, default: [] },
-  isLoading: Boolean,
+  isFetching: Boolean,
   error: String,
 });
 
@@ -64,7 +64,7 @@ const sortedConnections = computed(() => {
 
 <template>
   <div class="connections-results-table">
-    <div v-if="isLoading" class="loading" aria-live="polite" aria-busy="true">
+    <div v-if="isFetching" class="loading" aria-live="polite" aria-busy="true">
       Loading connections…
     </div>
     <div v-else-if="error" class="error" aria-live="assertive" role="alert">

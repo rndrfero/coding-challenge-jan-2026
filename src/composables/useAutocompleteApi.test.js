@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { useAutocompleteApi } from "./useAutocompleteApi";
+import { createMockResponse } from "./useApiHelpers";
 
 describe("useAutocompleteApi", () => {
   beforeEach(() => {
@@ -12,10 +13,10 @@ describe("useAutocompleteApi", () => {
   });
 
   it("initializes with empty results", () => {
-    const { results, isLoading, error } = useAutocompleteApi();
+    const { results, isFetching, error } = useAutocompleteApi();
 
     expect(results.value).toEqual([]);
-    expect(isLoading.value).toBe(false);
+    expect(isFetching.value).toBe(false);
     expect(error.value).toBe(null);
   });
 
@@ -66,10 +67,9 @@ describe("useAutocompleteApi", () => {
       ],
     };
 
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockData,
-    });
+    global.fetch.mockResolvedValueOnce(
+      createMockResponse(mockData, { ok: true }),
+    );
 
     const { results, fetchStations } = useAutocompleteApi();
 
@@ -83,10 +83,9 @@ describe("useAutocompleteApi", () => {
   });
 
   it("sanitizes query before fetching", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ searchLocations: [] }),
-    });
+    global.fetch.mockResolvedValueOnce(
+      createMockResponse({ searchLocations: [] }, { ok: true }),
+    );
 
     const { fetchStations } = useAutocompleteApi();
 
@@ -99,9 +98,7 @@ describe("useAutocompleteApi", () => {
   });
 
   it("handles API errors", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: false,
-    });
+    global.fetch.mockResolvedValueOnce(createMockResponse(null, { ok: false }));
 
     const { error, fetchStations } = useAutocompleteApi();
 
@@ -129,10 +126,9 @@ describe("useAutocompleteApi", () => {
   });
 
   it("handles invalid response format", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ invalid: "data" }),
-    });
+    global.fetch.mockResolvedValueOnce(
+      createMockResponse({ invalid: "data" }, { ok: true }),
+    );
 
     const { error, fetchStations } = useAutocompleteApi();
 
@@ -146,10 +142,9 @@ describe("useAutocompleteApi", () => {
   });
 
   it("handles null searchLocations", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ searchLocations: null }),
-    });
+    global.fetch.mockResolvedValueOnce(
+      createMockResponse({ searchLocations: null }, { ok: true }),
+    );
 
     const { error, fetchStations } = useAutocompleteApi();
 
@@ -163,10 +158,9 @@ describe("useAutocompleteApi", () => {
   });
 
   it("encodes query parameters", async () => {
-    global.fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ searchLocations: [] }),
-    });
+    global.fetch.mockResolvedValueOnce(
+      createMockResponse({ searchLocations: [] }, { ok: true }),
+    );
 
     const { fetchStations } = useAutocompleteApi();
 
@@ -220,23 +214,15 @@ describe("useAutocompleteApi", () => {
     let abortSignal2 = null;
 
     global.fetch
-      .mockImplementationOnce((url, options) => {
+      .mockImplementationOnce(async (url, options) => {
         abortSignal1 = options.signal;
-        return Promise.resolve({
-          ok: true,
-          json: async () => {
-            // Simulate slow response
-            await new Promise((resolve) => setTimeout(resolve, 100));
-            return mockData1;
-          },
-        });
+        // Simulate slow response
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        return createMockResponse(mockData1, { ok: true });
       })
       .mockImplementationOnce((url, options) => {
         abortSignal2 = options.signal;
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockData2,
-        });
+        return Promise.resolve(createMockResponse(mockData2, { ok: true }));
       });
 
     const { results, fetchStations } = useAutocompleteApi();
@@ -278,10 +264,7 @@ describe("useAutocompleteApi", () => {
       ],
     };
 
-    global.fetch.mockResolvedValue({
-      ok: true,
-      json: async () => mockData,
-    });
+    global.fetch.mockResolvedValue(createMockResponse(mockData, { ok: true }));
 
     const { fetchStations } = useAutocompleteApi();
 
@@ -331,21 +314,13 @@ describe("useAutocompleteApi", () => {
     };
 
     global.fetch
-      .mockImplementationOnce((url, options) => {
-        return Promise.resolve({
-          ok: true,
-          json: async () => {
-            // Simulate slow response
-            await new Promise((resolve) => setTimeout(resolve, 100));
-            return mockData1;
-          },
-        });
+      .mockImplementationOnce(async (url, options) => {
+        // Simulate slow response
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        return createMockResponse(mockData1, { ok: true });
       })
       .mockImplementationOnce((url, options) => {
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockData2,
-        });
+        return Promise.resolve(createMockResponse(mockData2, { ok: true }));
       });
 
     const { results, fetchStations } = useAutocompleteApi();
@@ -424,23 +399,15 @@ describe("useAutocompleteApi", () => {
     let jsonResolve1 = null;
 
     global.fetch
-      .mockImplementationOnce((url, options) => {
-        return Promise.resolve({
-          ok: true,
-          json: async () => {
-            // Delay json parsing to allow second request to start
-            await new Promise((resolve) => {
-              jsonResolve1 = resolve;
-            });
-            return mockData1;
-          },
+      .mockImplementationOnce(async (url, options) => {
+        // Delay to allow second request to start
+        await new Promise((resolve) => {
+          jsonResolve1 = resolve;
         });
+        return createMockResponse(mockData1, { ok: true });
       })
       .mockImplementationOnce((url, options) => {
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockData2,
-        });
+        return Promise.resolve(createMockResponse(mockData2, { ok: true }));
       });
 
     const { results, fetchStations } = useAutocompleteApi();
@@ -451,7 +418,7 @@ describe("useAutocompleteApi", () => {
     // Wait a bit for first request to reach json() call
     await new Promise((resolve) => setTimeout(resolve, 10));
 
-    // Start second request (should cancel first and change currentQuery)
+    // Start second request (should cancel first)
     const promise2 = fetchStations("berlin");
 
     await promise2;
@@ -468,21 +435,20 @@ describe("useAutocompleteApi", () => {
 
   it("ignores stale error responses when query changes", async () => {
     global.fetch
-      .mockImplementationOnce((url, options) => {
-        return Promise.resolve({
-          ok: true,
-          json: async () => {
-            // Slow response
-            await new Promise((resolve) => setTimeout(resolve, 100));
-            throw new Error("Parse error");
-          },
-        });
+      .mockImplementationOnce(async (url, options) => {
+        // Slow response that will fail during json parsing
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        const response = createMockResponse({}, { ok: true });
+        // Override json to throw error
+        response.json = async () => {
+          throw new Error("Parse error");
+        };
+        return response;
       })
       .mockImplementationOnce((url, options) => {
-        return Promise.resolve({
-          ok: true,
-          json: async () => ({ searchLocations: [] }),
-        });
+        return Promise.resolve(
+          createMockResponse({ searchLocations: [] }, { ok: true }),
+        );
       });
 
     const { error, results, fetchStations } = useAutocompleteApi();
@@ -530,32 +496,19 @@ describe("useAutocompleteApi", () => {
     const abortSignals = [];
 
     global.fetch
-      .mockImplementationOnce((url, options) => {
+      .mockImplementationOnce(async (url, options) => {
         abortSignals.push(options.signal);
-        return Promise.resolve({
-          ok: true,
-          json: async () => {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            return mockData1;
-          },
-        });
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        return createMockResponse(mockData1, { ok: true });
+      })
+      .mockImplementationOnce(async (url, options) => {
+        abortSignals.push(options.signal);
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        return createMockResponse(mockData2, { ok: true });
       })
       .mockImplementationOnce((url, options) => {
         abortSignals.push(options.signal);
-        return Promise.resolve({
-          ok: true,
-          json: async () => {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            return mockData2;
-          },
-        });
-      })
-      .mockImplementationOnce((url, options) => {
-        abortSignals.push(options.signal);
-        return Promise.resolve({
-          ok: true,
-          json: async () => mockData3,
-        });
+        return Promise.resolve(createMockResponse(mockData3, { ok: true }));
       });
 
     const { results, fetchStations } = useAutocompleteApi();
