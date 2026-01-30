@@ -1,6 +1,14 @@
 <script setup>
 import { formatPrice } from "../utils/formatters";
 
+/**
+ * @typedef {import("../schemas/connections.js").Fare} Fare
+ */
+
+/**
+ * @param {Object} props
+ * @param {Fare[]} props.fares
+ */
 const props = defineProps({
   fares: {
     type: Array,

@@ -20,3 +20,25 @@ export const LocationSchema = z.object({
 export const AutocompleteResponseSchema = z.object({
   searchLocations: z.array(LocationSchema),
 });
+
+/**
+ * @typedef {Object} Location
+ * @property {string} name
+ * @property {string} translatedName
+ * @property {string} countryCode
+ * @property {string} code
+ * @property {number} score
+ * @property {number} longitude
+ * @property {number} latitude
+ * @property {Object} extraInfo
+ * @property {string[]} extraInfo.attributes
+ * @property {string} locationType
+ * @property {string} defaultLanguage
+ * @property {string} timezone
+ * @property {unknown[]} connections
+ */
+
+/**
+ * @typedef {Object} AutocompleteResponse
+ * @property {Location[]} searchLocations
+ */

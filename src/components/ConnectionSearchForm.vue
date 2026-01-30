@@ -2,6 +2,18 @@
 import { computed } from "vue";
 import AutocompleteField from "./AutocompleteField.vue";
 
+/**
+ * @typedef {Object} SearchFormValue
+ * @property {string} [from]
+ * @property {string} [to]
+ * @property {string} [departureAt]
+ * @property {boolean} [onlyDirect]
+ */
+
+/**
+ * @param {Object} props
+ * @param {SearchFormValue} props.modelValue
+ */
 const props = defineProps({
   modelValue: {
     type: Object,

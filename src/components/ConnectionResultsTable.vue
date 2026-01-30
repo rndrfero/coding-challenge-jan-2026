@@ -2,6 +2,17 @@
 import { ref, computed } from "vue";
 import ConnectionRow from "./ConnectionRow.vue";
 
+/**
+ * @typedef {import("../schemas/connections.js").Connection} Connection
+ */
+
+/**
+ * @param {Object} props
+ * @param {Connection[]} props.connections
+ * @param {boolean} props.isFetching
+ * @param {string} [props.error]
+ */
+
 const props = defineProps({
   connections: { type: Array, default: [] },
   isFetching: Boolean,

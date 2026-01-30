@@ -19,3 +19,27 @@ export const ConnectionSchema = z.object({
 });
 
 export const ConnectionsResponseSchema = z.array(ConnectionSchema);
+
+/**
+ * @typedef {Object} Fare
+ * @property {string} name
+ * @property {number} price_in_cents
+ * @property {string} currency
+ * @property {1|2} comfort_class
+ */
+
+/**
+ * @typedef {Object} Connection
+ * @property {string} departure_station
+ * @property {string} departure_at
+ * @property {string} arrival_station
+ * @property {string} arrival_at
+ * @property {number} duration_in_minutes
+ * @property {number} changeovers
+ * @property {string[]} products
+ * @property {Fare[]} fares
+ */
+
+/**
+ * @typedef {Connection[]} ConnectionsResponse
+ */

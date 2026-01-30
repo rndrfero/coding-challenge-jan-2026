@@ -3,6 +3,12 @@ import { ref, watch, onUnmounted } from "vue";
 import { useAutocompleteApi } from "../composables/useAutocompleteApi";
 import { TIMING } from "../constants";
 
+/**
+ * @param {Object} props
+ * @param {string} props.label
+ * @param {string} [props.modelValue]
+ * @param {string} [props.placeholder]
+ */
 const props = defineProps({
   label: {
     type: String,

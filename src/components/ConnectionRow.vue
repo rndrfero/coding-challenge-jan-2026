@@ -3,6 +3,14 @@ import { ref } from "vue";
 import FareDetails from "./FareDetails.vue";
 import { formatTime, formatPrice } from "../utils/formatters";
 
+/**
+ * @typedef {import("../schemas/connections.js").Connection} Connection
+ */
+
+/**
+ * @param {Object} props
+ * @param {Connection} props.connection
+ */
 const props = defineProps({
   connection: {
     type: Object,
