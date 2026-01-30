@@ -21,7 +21,7 @@ const props = defineProps({
   error: String,
 });
 
-const sortBy = ref("departure_at");
+const sortBy = ref("departureAt");
 
 function handleSort(field) {
   if (sortBy.value === field) {
@@ -32,14 +32,14 @@ function handleSort(field) {
 }
 
 function getValue(connection, field) {
-  if (field === "departure_at") {
-    return new Date(connection.departure_at).getTime();
+  if (field === "departureAt") {
+    return new Date(connection.departureAt).getTime();
   }
   if (field === "duration") {
-    return connection.duration_in_minutes;
+    return connection.durationInMinutes;
   }
   if (field === "price") {
-    return connection.fares?.[0]?.price_in_cents ?? Infinity;
+    return connection.fares?.[0]?.priceInCents ?? Infinity;
   }
   return 0;
 }
@@ -81,7 +81,7 @@ const sortedConnections = computed(() => {
         <tbody>
           <ConnectionRow
             v-for="connection in sortedConnections"
-            :key="`${connection.departure_at}-${connection.arrival_at}-${connection.departure_station}-${connection.arrival_station}`"
+            :key="`${connection.departureAt}-${connection.arrivalAt}-${connection.departureStation}-${connection.arrivalStation}`"
             :connection="connection"
           />
         </tbody>

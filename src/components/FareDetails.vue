@@ -22,9 +22,9 @@ const props = defineProps({
     <div v-for="(fare, index) in fares" :key="index" class="item">
       <div class="name">{{ fare.name }}</div>
       <div class="price">
-        {{ fare.currency }} {{ formatPrice(fare.price_in_cents) }}
+        {{ fare.currency }} {{ formatPrice(fare.priceInCents) }}
       </div>
-      <div class="class">Class {{ fare.comfort_class }}</div>
+      <div class="class">Class {{ fare.comfortClass }}</div>
     </div>
   </div>
 </template>

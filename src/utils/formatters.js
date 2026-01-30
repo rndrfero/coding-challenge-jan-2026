@@ -24,11 +24,8 @@ export function sanitizeSearchQuery(input) {
   if (input == null) return "";
 
   let value = String(input).trim();
-
-  // Remove control characters (0x00-0x1F) and DEL (0x7F)
   value = value.replace(/[\x00-\x1f\x7f]/g, "");
 
-  // Limit length
   if (value.length > VALIDATION.MAX_SEARCH_QUERY_LENGTH) {
     value = value.slice(0, VALIDATION.MAX_SEARCH_QUERY_LENGTH);
   }

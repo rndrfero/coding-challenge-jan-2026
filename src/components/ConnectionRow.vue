@@ -33,19 +33,19 @@ function toggle() {
     role="button"
     tabindex="0"
   >
-    <td data-label="Departure">{{ connection.departure_station }}</td>
-    <td data-label="Arrival">{{ connection.arrival_station }}</td>
+    <td data-label="Departure">{{ connection.departureStation }}</td>
+    <td data-label="Arrival">{{ connection.arrivalStation }}</td>
     <td data-label="Departure Time">
-      {{ formatTime(connection.departure_at) }}
+      {{ formatTime(connection.departureAt) }}
     </td>
-    <td data-label="Arrival Time">{{ formatTime(connection.arrival_at) }}</td>
-    <td data-label="Duration">{{ connection.duration_in_minutes }} min</td>
+    <td data-label="Arrival Time">{{ formatTime(connection.arrivalAt) }}</td>
+    <td data-label="Duration">{{ connection.durationInMinutes }} min</td>
     <td data-label="Changeovers">{{ connection.changeovers }}</td>
     <td data-label="Price">
       <div class="price-cell">
         <span
           >{{ connection.fares?.[0]?.currency }}
-          {{ formatPrice(connection.fares?.[0]?.price_in_cents) }}</span
+          {{ formatPrice(connection.fares?.[0]?.priceInCents) }}</span
         >
         <span v-if="connection.fares?.length > 1" class="expand-indicator">
           {{ isExpanded ? "−" : "+" }} {{ connection.fares.length }} fares

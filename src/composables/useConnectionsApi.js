@@ -2,7 +2,7 @@ import { ref, computed } from "vue";
 import { useFetch } from "@vueuse/core";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants";
 import { ConnectionsResponseSchema } from "../schemas/connections";
-import { checkHttpError, createErrorComputed } from "./useApiHelpers";
+import { checkHttpError, createErrorComputed, snakeToCamel } from "./useApiHelpers";
 
 export function useConnectionsApi() {
   const connections = ref([]);
@@ -40,9 +40,7 @@ export function useConnectionsApi() {
     },
     afterFetch: ({ response, data }) => {
       checkHttpError(response);
-
-      const validated = ConnectionsResponseSchema.parse(data);
-      connections.value = validated;
+      connections.value = snakeToCamel(ConnectionsResponseSchema.parse(data));
       return { data };
     },
     onFetchError: ({ error, response }) => {

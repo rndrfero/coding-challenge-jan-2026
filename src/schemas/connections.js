@@ -21,15 +21,15 @@ export const ConnectionSchema = z.object({
 export const ConnectionsResponseSchema = z.array(ConnectionSchema);
 
 /**
- * @typedef {Object} Fare
+ * API Schema Types (snake_case - as received from API)
+ * 
+ * @typedef {Object} FareApi
  * @property {string} name
  * @property {number} price_in_cents
  * @property {string} currency
  * @property {1|2} comfort_class
- */
-
-/**
- * @typedef {Object} Connection
+ * 
+ * @typedef {Object} ConnectionApi
  * @property {string} departure_station
  * @property {string} departure_at
  * @property {string} arrival_station
@@ -37,9 +37,30 @@ export const ConnectionsResponseSchema = z.array(ConnectionSchema);
  * @property {number} duration_in_minutes
  * @property {number} changeovers
  * @property {string[]} products
- * @property {Fare[]} fares
+ * @property {FareApi[]} fares
  */
 
 /**
+ * Frontend Types (camelCase - after transformation)
+ * 
+ * API responses are validated with Zod (snake_case), then transformed to camelCase
+ * using lodash's camelCase before being used in components.
+ * 
+ * @typedef {Object} Fare
+ * @property {string} name
+ * @property {number} priceInCents
+ * @property {string} currency
+ * @property {1|2} comfortClass
+ * 
+ * @typedef {Object} Connection
+ * @property {string} departureStation
+ * @property {string} departureAt
+ * @property {string} arrivalStation
+ * @property {string} arrivalAt
+ * @property {number} durationInMinutes
+ * @property {number} changeovers
+ * @property {string[]} products
+ * @property {Fare[]} fares
+ * 
  * @typedef {Connection[]} ConnectionsResponse
  */

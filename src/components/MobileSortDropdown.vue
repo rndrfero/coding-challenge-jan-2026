@@ -19,8 +19,8 @@ const emit = defineEmits(["update:modelValue"]);
       @change="emit('update:modelValue', $event.target.value)"
       class="sort-select"
     >
-      <option value="departure_at">Departure Time (earliest)</option>
-      <option value="departure_at-desc">Departure Time (latest)</option>
+      <option value="departureAt">Departure Time (earliest)</option>
+      <option value="departureAt-desc">Departure Time (latest)</option>
       <option value="duration">Duration (shortest)</option>
       <option value="duration-desc">Duration (longest)</option>
       <option value="price">Price (lowest)</option>

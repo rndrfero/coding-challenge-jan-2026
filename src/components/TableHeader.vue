@@ -30,11 +30,11 @@ function getSortAriaLabel(field, fieldName = field) {
       <th>Arrival</th>
       <th
         class="sortable"
-        @click="onSort('departure_at')"
+        @click="onSort('departureAt')"
         role="button"
-        :aria-label="getSortAriaLabel('departure_at', 'departure time')"
+        :aria-label="getSortAriaLabel('departureAt', 'departure time')"
       >
-        Departure Time {{ sortIndicator("departure_at") }}
+        Departure Time {{ sortIndicator("departureAt") }}
       </th>
       <th>Arrival Time</th>
       <th

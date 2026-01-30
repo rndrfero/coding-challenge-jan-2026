@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { useConnectionsApi } from "./useConnectionsApi";
-import { createMockResponse } from "./useApiHelpers";
+import { createMockResponse, snakeToCamel } from "./useApiHelpers";
+import { ConnectionsResponseSchema } from "../schemas/connections";
 
 describe("useConnectionsApi", () => {
   beforeEach(() => {
@@ -53,7 +54,7 @@ describe("useConnectionsApi", () => {
       departureAt: "2025-12-08T08:00",
     });
 
-    expect(connections.value).toEqual(mockConnections);
+    expect(connections.value).toEqual(snakeToCamel(ConnectionsResponseSchema.parse(mockConnections)));
     expect(global.fetch).toHaveBeenCalledWith("/api/connections", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
