@@ -73,7 +73,7 @@ async function handleInput(event) {
     try {
       await fetchStations(value);
     } catch (err) {
-      // Ignore aborted requests - errors are handled by composable
+      // Errors are handled by composable
     }
     debounceTimer = null;
   }, delay);

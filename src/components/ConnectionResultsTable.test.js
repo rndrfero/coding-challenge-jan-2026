@@ -68,16 +68,12 @@ describe("ConnectionResultsTable", () => {
       },
     });
 
-    // Default is already "departureAt", so first click toggles to descending
-    // We need to set it to a different field first, then click to get ascending
     wrapper.vm.sortBy = "duration";
     await wrapper.vm.$nextTick();
 
-    // Now click to sort by departureAt (ascending)
     await wrapper.vm.handleSort("departureAt");
 
     const sorted = wrapper.vm.sortedConnections;
-    // Verify sorted order (earliest first)
     expect(new Date(sorted[0].departureAt).getTime()).toBeLessThan(
       new Date(sorted[1].departureAt).getTime(),
     );
@@ -95,11 +91,9 @@ describe("ConnectionResultsTable", () => {
       },
     });
 
-    // Default is "departureAt", so first click toggles to descending
     await wrapper.vm.handleSort("departureAt");
 
     const sorted = wrapper.vm.sortedConnections;
-    // Verify sorted order (latest first)
     expect(new Date(sorted[0].departureAt).getTime()).toBeGreaterThan(
       new Date(sorted[1].departureAt).getTime(),
     );
@@ -120,7 +114,6 @@ describe("ConnectionResultsTable", () => {
     await wrapper.vm.handleSort("duration");
 
     const sorted = wrapper.vm.sortedConnections;
-    // Verify sorted order (shortest first)
     expect(sorted[0].durationInMinutes).toBeLessThanOrEqual(
       sorted[1].durationInMinutes,
     );
@@ -141,7 +134,6 @@ describe("ConnectionResultsTable", () => {
     await wrapper.vm.handleSort("price");
 
     const sorted = wrapper.vm.sortedConnections;
-    // Verify sorted order (cheapest first)
     const price0 = sorted[0].fares?.[0]?.priceInCents ?? Infinity;
     const price1 = sorted[1].fares?.[0]?.priceInCents ?? Infinity;
     const price2 = sorted[2].fares?.[0]?.priceInCents ?? Infinity;
@@ -158,13 +150,11 @@ describe("ConnectionResultsTable", () => {
       },
     });
 
-    // Set to a different field first, then click to get ascending
     wrapper.vm.sortBy = "duration";
     await wrapper.vm.$nextTick();
     await wrapper.vm.handleSort("departureAt");
     await wrapper.vm.$nextTick();
 
-    // Check that the rendered header contains the ascending indicator
     const headerText = wrapper.find("thead").text();
     expect(headerText).toContain("Departure Time ↑");
   });
@@ -178,11 +168,9 @@ describe("ConnectionResultsTable", () => {
       },
     });
 
-    // Default is "departureAt", so first click toggles to descending
     await wrapper.vm.handleSort("departureAt");
     await wrapper.vm.$nextTick();
 
-    // Check that the rendered header contains the descending indicator
     const headerText = wrapper.find("thead").text();
     expect(headerText).toContain("Departure Time ↓");
   });
@@ -207,7 +195,6 @@ describe("ConnectionResultsTable", () => {
 
     const sorted = wrapper.vm.sortedConnections;
     expect(sorted[0].fares).toEqual([]);
-    // Price should be Infinity for connections without fares
     expect(sorted[0].fares?.[0]?.priceInCents).toBeUndefined();
   });
 });

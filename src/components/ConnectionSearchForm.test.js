@@ -44,7 +44,6 @@ describe("ConnectionSearchForm", () => {
       },
     });
 
-    // Find the AutocompleteField for "From"
     const fromField = wrapper.findAllComponents({
       name: "AutocompleteField",
     })[0];

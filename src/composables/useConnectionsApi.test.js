@@ -106,7 +106,7 @@ describe("useConnectionsApi", () => {
         departureAt: "2025-12-08T08:00",
       });
     } catch (err) {
-      // Error is re-thrown
+      // Expected
     }
 
     expect(error.value).toBe("Failed to fetch connections");
@@ -124,7 +124,7 @@ describe("useConnectionsApi", () => {
         departureAt: "2025-12-08T08:00",
       });
     } catch (err) {
-      // Error is re-thrown
+      // Expected
     }
 
     expect(error.value).toBe("Network error");
@@ -179,7 +179,7 @@ describe("useConnectionsApi", () => {
         departureAt: "2026-06-15T08:00",
       });
     } catch (err) {
-      // Error is re-thrown
+      // Expected
     }
 
     expect(error.value).toBe("Invalid response format: expected array");

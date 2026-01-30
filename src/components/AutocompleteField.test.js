@@ -4,7 +4,6 @@ import { ref } from "vue";
 import AutocompleteField from "./AutocompleteField.vue";
 import { useAutocompleteApi } from "../composables/useAutocompleteApi";
 
-// Mock the composable
 vi.mock("../composables/useAutocompleteApi", () => ({
   useAutocompleteApi: vi.fn(),
 }));
@@ -100,7 +99,6 @@ describe("AutocompleteField", () => {
       },
     });
 
-    // Set isOpen to true first
     wrapper.vm.isOpen = true;
 
     const input = wrapper.find("input");

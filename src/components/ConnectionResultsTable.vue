@@ -44,7 +44,6 @@ function getValue(connection, field) {
   return 0;
 }
 
-// Memoized by Vue's computed - only recalculates when connections or sortBy changes
 const sortedConnections = computed(() => {
   if (props.connections.length <= 1) {
     return props.connections;

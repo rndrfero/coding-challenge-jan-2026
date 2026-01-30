@@ -19,34 +19,28 @@ const { isFetching, error, connections, searchConnections } =
 const validationError = ref(null);
 
 function handleSearch() {
-  // Reset validation error
   validationError.value = null;
 
-  // Validate from field
   if (!formData.value.from?.trim()) {
     validationError.value = "Please enter a departure station.";
     return;
   }
 
-  // Validate to field
   if (!formData.value.to?.trim()) {
     validationError.value = "Please enter an arrival station.";
     return;
   }
 
-  // Validate from and to are different
   if (normalize(formData.value.from) === normalize(formData.value.to)) {
     validationError.value = "Departure and arrival stations must be different.";
     return;
   }
 
-  // Validate departure date
   if (!formData.value.departureAt) {
     validationError.value = "Please select a departure date and time.";
     return;
   }
 
-  // Validate date is valid
   const departureDate = new Date(formData.value.departureAt);
   if (isNaN(departureDate.getTime())) {
     validationError.value = "Please enter a valid departure date and time.";

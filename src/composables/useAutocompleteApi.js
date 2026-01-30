@@ -15,11 +15,9 @@ export function useAutocompleteApi() {
       : null,
   );
 
-  // Helper to check if response is stale (URL changed during request)
   const isStaleResponse = (contextUrl) =>
     contextUrl && contextUrl !== url.value;
 
-  // Helper to transform errors to user-friendly messages
   const transformError = (error, response) => {
     if (error.name === "AbortError" || error.name === "DOMException") {
       return null; // Ignore abort errors
