@@ -159,8 +159,11 @@ describe("ConnectionResultsTable", () => {
     wrapper.vm.sortBy = "duration";
     await wrapper.vm.$nextTick();
     await wrapper.vm.handleSort("departure_at");
+    await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.sortIndicator("departure_at")).toBe("↑");
+    // Check that the rendered header contains the ascending indicator
+    const headerText = wrapper.find("thead").text();
+    expect(headerText).toContain("Departure Time ↑");
   });
 
   it("shows sort indicator for descending", async () => {
@@ -174,8 +177,11 @@ describe("ConnectionResultsTable", () => {
 
     // Default is "departure_at", so first click toggles to descending
     await wrapper.vm.handleSort("departure_at");
+    await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.sortIndicator("departure_at")).toBe("↓");
+    // Check that the rendered header contains the descending indicator
+    const headerText = wrapper.find("thead").text();
+    expect(headerText).toContain("Departure Time ↓");
   });
 
   it("handles connections without fares", async () => {

@@ -77,16 +77,31 @@ function toggle() {
   @apply text-xs text-blue-600 font-medium;
 }
 
-.fare-row {
-  @apply border-b;
-}
-
 .fare-cell {
   @apply p-0 overflow-hidden;
   animation: slideDown 0.3s ease-out;
 }
 
 @media (max-width: 768px) {
+  .connection-row {
+    @apply block mb-4 rounded-lg border border-slate-200 bg-white shadow-sm;
+    padding: 12px;
+  }
+
+  .connection-row td {
+    @apply block text-right border-b border-slate-100;
+    padding: 8px 0;
+  }
+
+  .connection-row td::before {
+    content: attr(data-label);
+    @apply float-left font-semibold text-slate-600;
+  }
+
+  .connection-row td:last-child {
+    @apply border-b-0;
+  }
+
   .price-cell {
     @apply flex-col items-end gap-1;
   }
