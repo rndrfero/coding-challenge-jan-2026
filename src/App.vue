@@ -13,7 +13,7 @@ const formData = ref({
   onlyDirect: false,
 });
 
-const { isFetching, error, connections, searchConnections } =
+const { isFetching, error, connections, searchConnections, hasSearched } =
   useConnectionsApi();
 
 const validationError = ref(null);
@@ -80,6 +80,7 @@ function handleSearch() {
             :connections="connections"
             :is-fetching="isFetching"
             :error="error"
+            :has-searched="hasSearched"
           />
         </div>
       </ErrorBoundary>

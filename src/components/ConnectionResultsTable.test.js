@@ -43,7 +43,7 @@ describe("ConnectionResultsTable", () => {
       },
     });
 
-    expect(wrapper.text()).toContain("No connections yet. Try a search.");
+    expect(wrapper.text()).toContain("Try a search.");
   });
 
   it("displays connections", () => {

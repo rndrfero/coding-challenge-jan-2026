@@ -55,6 +55,8 @@ export function useConnectionsApi() {
 
   const error = createErrorComputed(fetchError);
 
+  const hasSearched = computed(() => payload.value !== null);
+
   async function searchConnections(params) {
     payload.value = params;
     await execute(true);
@@ -65,5 +67,6 @@ export function useConnectionsApi() {
     error,
     connections,
     searchConnections,
+    hasSearched,
   };
 }

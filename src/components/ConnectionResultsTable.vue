@@ -13,12 +13,14 @@ import MobileSortDropdown from "./MobileSortDropdown.vue";
  * @param {Connection[]} props.connections
  * @param {boolean} props.isFetching
  * @param {string} [props.error]
+ * @param {boolean} props.hasSearched
  */
 
 const props = defineProps({
   connections: { type: Array, default: [] },
   isFetching: Boolean,
   error: String,
+  hasSearched: { type: Boolean, default: false },
 });
 
 const sortBy = ref("departureAt");
@@ -70,7 +72,8 @@ const sortedConnections = computed(() => {
       {{ error }}
     </div>
     <div v-else-if="connections.length === 0" class="empty" aria-live="polite">
-      No connections yet. Try a search.
+      <span v-if="hasSearched">No connections found for your search.</span>
+      <span v-else>Try a search.</span>
     </div>
     <div v-else class="table-wrapper">
       <MobileSortDropdown v-model="sortBy" />
