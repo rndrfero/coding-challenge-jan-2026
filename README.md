@@ -49,17 +49,15 @@ We cannot use the live trainline.com API:
 
 ## 🔮 Limitations and Future Improvements
 
-- Type definitions and safety
-- Production-ready error handling
+- TypeScript compile-time types (runtime validation via Zod is implemented)
 - Animation visual tuning and fixing sort relaunch animation bug
 - Dynamic generative mock data
-- Loading state for autocomplete
 - Timezone awareness
 - More tests for edge cases
-- E2E tests, visual regression tests, accessibility tests
-- Keyboard support for autocomplete
+- E2E tests, visual regression tests
+- Full keyboard navigation for autocomplete (Arrow keys, Enter to select)
 - API rate limiting
-- Loading skeletons
+- Loading states and skeletons
 - etc
 
 ## 🚀 Quick Start
