@@ -3,6 +3,7 @@ import { useApiRequest } from "./useApiRequest";
 import { sanitizeSearchQuery } from "../utils/formatters";
 import { apiClient } from "../api/client";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants";
+import { AutocompleteResponseSchema } from "../schemas/autocomplete";
 
 export function useAutocompleteApi() {
   const { isLoading, error, executeRequest } = useApiRequest();
@@ -46,15 +47,13 @@ export function useAutocompleteApi() {
 
           // Only update if this is still the current query
           if (currentQuery === sanitized) {
-            if (!data || typeof data !== "object") {
-              throw new Error(ERROR_MESSAGES.INVALID_RESPONSE_FORMAT);
-            }
-            results.value = Array.isArray(data.searchLocations)
-              ? data.searchLocations
-              : [];
+            const validated = AutocompleteResponseSchema.parse(data);
+            results.value = validated.searchLocations;
           }
         } catch (err) {
-          // Convert ApiError to specific error message
+          if (err.name === "ZodError") {
+            throw new Error(ERROR_MESSAGES.INVALID_RESPONSE_FORMAT);
+          }
           if (err.name === "ApiError") {
             throw new Error(ERROR_MESSAGES.FETCH_STATIONS);
           }

@@ -2,6 +2,7 @@ import { ref } from "vue";
 import { useApiRequest } from "./useApiRequest";
 import { apiClient } from "../api/client";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "../constants";
+import { ConnectionsResponseSchema } from "../schemas/connections";
 
 export function useConnectionsApi() {
   const { isLoading, error, executeRequest } = useApiRequest();
@@ -13,13 +14,11 @@ export function useConnectionsApi() {
         const res = await apiClient.post(API_ENDPOINTS.CONNECTIONS, params);
 
         const data = await res.json();
-        if (!Array.isArray(data)) {
+        connections.value = ConnectionsResponseSchema.parse(data);
+      } catch (err) {
+        if (err.name === "ZodError") {
           throw new Error(ERROR_MESSAGES.INVALID_RESPONSE_ARRAY);
         }
-
-        connections.value = data;
-      } catch (err) {
-        // Convert ApiError to specific error message
         if (err.name === "ApiError") {
           throw new Error(ERROR_MESSAGES.FETCH_CONNECTIONS);
         }

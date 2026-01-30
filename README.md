@@ -4,7 +4,13 @@ Single-page application for searching train connections between cities.
 
 ## Architecture
 
-Vue 3 with Composition API, Vite, Tailwind CSS, and MSW for API mocking. Uses composables for reusable logic and co-located tests.
+Vue 3 with Composition API, Vite. Uses composables for reusable logic and co-located tests.
+
+### Dependencies
+
+- Tailwind CSS for styling
+- MSW for API mocking
+- Zod for type safety
 
 ## Test Data
 

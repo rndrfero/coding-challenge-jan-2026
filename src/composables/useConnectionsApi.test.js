@@ -28,7 +28,15 @@ describe("useConnectionsApi", () => {
         arrival_at: "2025-12-08T12:30:00",
         duration_in_minutes: 270,
         changeovers: 1,
-        fares: [],
+        products: ["train"],
+        fares: [
+          {
+            name: "Standard",
+            price_in_cents: 4999,
+            currency: "EUR",
+            comfort_class: 2,
+          },
+        ],
       },
     ];
 

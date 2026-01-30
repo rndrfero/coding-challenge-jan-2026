@@ -35,8 +35,34 @@ describe("useAutocompleteApi", () => {
   it("fetches stations successfully", async () => {
     const mockData = {
       searchLocations: [
-        { name: "Vienna", translatedName: "Vienna" },
-        { name: "Berlin", translatedName: "Berlin" },
+        {
+          name: "Vienna",
+          translatedName: "Vienna",
+          countryCode: "AT",
+          code: "urn:test:vienna",
+          score: 0.9,
+          longitude: 16.3738,
+          latitude: 48.2082,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Vienna",
+          connections: [],
+        },
+        {
+          name: "Berlin",
+          translatedName: "Berlin",
+          countryCode: "DE",
+          code: "urn:test:berlin",
+          score: 0.8,
+          longitude: 13.405,
+          latitude: 52.52,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Berlin",
+          connections: [],
+        },
       ],
     };
 
@@ -108,11 +134,15 @@ describe("useAutocompleteApi", () => {
       json: async () => ({ invalid: "data" }),
     });
 
-    const { results, fetchStations } = useAutocompleteApi();
+    const { error, fetchStations } = useAutocompleteApi();
 
-    await fetchStations("vienna");
+    try {
+      await fetchStations("vienna");
+    } catch (err) {
+      // Error is re-thrown
+    }
 
-    expect(results.value).toEqual([]);
+    expect(error.value).toBe("Invalid response format");
   });
 
   it("handles null searchLocations", async () => {
@@ -121,11 +151,15 @@ describe("useAutocompleteApi", () => {
       json: async () => ({ searchLocations: null }),
     });
 
-    const { results, fetchStations } = useAutocompleteApi();
+    const { error, fetchStations } = useAutocompleteApi();
 
-    await fetchStations("vienna");
+    try {
+      await fetchStations("vienna");
+    } catch (err) {
+      // Error is re-thrown
+    }
 
-    expect(results.value).toEqual([]);
+    expect(error.value).toBe("Invalid response format");
   });
 
   it("encodes query parameters", async () => {
@@ -146,10 +180,40 @@ describe("useAutocompleteApi", () => {
 
   it("cancels previous request when new request is made", async () => {
     const mockData1 = {
-      searchLocations: [{ name: "Vienna", translatedName: "Vienna" }],
+      searchLocations: [
+        {
+          name: "Vienna",
+          translatedName: "Vienna",
+          countryCode: "AT",
+          code: "urn:test:vienna",
+          score: 0.9,
+          longitude: 16.3738,
+          latitude: 48.2082,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Vienna",
+          connections: [],
+        },
+      ],
     };
     const mockData2 = {
-      searchLocations: [{ name: "Berlin", translatedName: "Berlin" }],
+      searchLocations: [
+        {
+          name: "Berlin",
+          translatedName: "Berlin",
+          countryCode: "DE",
+          code: "urn:test:berlin",
+          score: 0.8,
+          longitude: 13.405,
+          latitude: 52.52,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Berlin",
+          connections: [],
+        },
+      ],
     };
 
     let abortSignal1 = null;
@@ -196,7 +260,22 @@ describe("useAutocompleteApi", () => {
 
   it("cancels and restarts identical requests", async () => {
     const mockData = {
-      searchLocations: [{ name: "Vienna", translatedName: "Vienna" }],
+      searchLocations: [
+        {
+          name: "Vienna",
+          translatedName: "Vienna",
+          countryCode: "AT",
+          code: "urn:test:vienna",
+          score: 0.9,
+          longitude: 16.3738,
+          latitude: 48.2082,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Vienna",
+          connections: [],
+        },
+      ],
     };
 
     global.fetch.mockResolvedValue({
@@ -215,10 +294,40 @@ describe("useAutocompleteApi", () => {
 
   it("ignores stale responses when query changes", async () => {
     const mockData1 = {
-      searchLocations: [{ name: "Vienna", translatedName: "Vienna" }],
+      searchLocations: [
+        {
+          name: "Vienna",
+          translatedName: "Vienna",
+          countryCode: "AT",
+          code: "urn:test:vienna",
+          score: 0.9,
+          longitude: 16.3738,
+          latitude: 48.2082,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Vienna",
+          connections: [],
+        },
+      ],
     };
     const mockData2 = {
-      searchLocations: [{ name: "Berlin", translatedName: "Berlin" }],
+      searchLocations: [
+        {
+          name: "Berlin",
+          translatedName: "Berlin",
+          countryCode: "DE",
+          code: "urn:test:berlin",
+          score: 0.8,
+          longitude: 13.405,
+          latitude: 52.52,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Berlin",
+          connections: [],
+        },
+      ],
     };
 
     global.fetch
@@ -276,10 +385,40 @@ describe("useAutocompleteApi", () => {
 
   it("ignores stale response even if currentQuery changes during json parsing", async () => {
     const mockData1 = {
-      searchLocations: [{ name: "Vienna", translatedName: "Vienna" }],
+      searchLocations: [
+        {
+          name: "Vienna",
+          translatedName: "Vienna",
+          countryCode: "AT",
+          code: "urn:test:vienna",
+          score: 0.9,
+          longitude: 16.3738,
+          latitude: 48.2082,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Vienna",
+          connections: [],
+        },
+      ],
     };
     const mockData2 = {
-      searchLocations: [{ name: "Berlin", translatedName: "Berlin" }],
+      searchLocations: [
+        {
+          name: "Berlin",
+          translatedName: "Berlin",
+          countryCode: "DE",
+          code: "urn:test:berlin",
+          score: 0.8,
+          longitude: 13.405,
+          latitude: 52.52,
+          extraInfo: { attributes: [] },
+          locationType: "city",
+          defaultLanguage: "en",
+          timezone: "Europe/Berlin",
+          connections: [],
+        },
+      ],
     };
 
     let jsonResolve1 = null;
@@ -370,9 +509,23 @@ describe("useAutocompleteApi", () => {
   });
 
   it("handles multiple rapid requests correctly", async () => {
-    const mockData1 = { searchLocations: [{ name: "A", translatedName: "A" }] };
-    const mockData2 = { searchLocations: [{ name: "B", translatedName: "B" }] };
-    const mockData3 = { searchLocations: [{ name: "C", translatedName: "C" }] };
+    const createLocation = (name) => ({
+      name,
+      translatedName: name,
+      countryCode: "XX",
+      code: `urn:test:${name.toLowerCase()}`,
+      score: 0.9,
+      longitude: 0,
+      latitude: 0,
+      extraInfo: { attributes: [] },
+      locationType: "city",
+      defaultLanguage: "en",
+      timezone: "UTC",
+      connections: [],
+    });
+    const mockData1 = { searchLocations: [createLocation("A")] };
+    const mockData2 = { searchLocations: [createLocation("B")] };
+    const mockData3 = { searchLocations: [createLocation("C")] };
 
     const abortSignals = [];
 
