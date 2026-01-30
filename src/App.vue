@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import ConnectionSearchForm from "./components/ConnectionSearchForm.vue";
 import ConnectionResultsTable from "./components/ConnectionResultsTable.vue";
+import ErrorBoundary from "./components/ErrorBoundary.vue";
 import { useConnectionsApi } from "./composables/useConnectionsApi";
 import { normalize } from "./utils/formatters";
 
@@ -68,24 +69,26 @@ function handleSearch() {
     <div class="page-inner">
       <h1 class="page-title">Trainline Connections</h1>
 
-      <ConnectionSearchForm v-model="formData" @search="handleSearch" />
+      <ErrorBoundary>
+        <ConnectionSearchForm v-model="formData" @search="handleSearch" />
 
-      <div
-        v-if="validationError"
-        class="validation-error"
-        role="alert"
-        aria-live="assertive"
-      >
-        {{ validationError }}
-      </div>
+        <div
+          v-if="validationError"
+          class="validation-error"
+          role="alert"
+          aria-live="assertive"
+        >
+          {{ validationError }}
+        </div>
 
-      <div class="results-section">
-        <ConnectionResultsTable
-          :connections="connections"
-          :is-fetching="isFetching"
-          :error="error"
-        />
-      </div>
+        <div class="results-section">
+          <ConnectionResultsTable
+            :connections="connections"
+            :is-fetching="isFetching"
+            :error="error"
+          />
+        </div>
+      </ErrorBoundary>
     </div>
   </div>
 </template>
